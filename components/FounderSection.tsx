@@ -1,0 +1,105 @@
+import Image from "next/image";
+
+export default function FounderSection() {
+  return (
+    <section
+      id="kurucu"
+      className="border-b border-black bg-white"
+      aria-labelledby="kurucu-title"
+    >
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_1.1fr] lg:gap-16 lg:py-28">
+        <div className="relative mx-auto w-full max-w-sm lg:mx-0 lg:max-w-none">
+          <div
+            className="relative w-full border border-black bg-ice/30"
+            style={{ aspectRatio: "3 / 4" }}
+          >
+            <Image
+              src="/founder.jpeg"
+              alt="Ekiz Yazılım kurucusu Mert"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 24rem, 40vw"
+              priority={false}
+            />
+          </div>
+          <p className="mt-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
+            Kurucu
+          </p>
+          <a
+            href="mailto:ekizmert3@gmail.com"
+            className="mt-2 inline-block text-sm text-black/70 transition-colors hover:text-black"
+          >
+            ekizmert3@gmail.com
+          </a>
+          <p className="mt-1 text-xs text-black/45">Sorularınız için yazın</p>
+        </div>
+
+        <div className="flex flex-col justify-center">
+          <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
+            Kurucudan
+          </p>
+          <h2
+            id="kurucu-title"
+            className="text-3xl font-medium tracking-tight text-black sm:text-4xl"
+          >
+            Merhaba, ben Mert.
+          </h2>
+          <p className="mt-2 text-lg text-black/55">Kurucu, Ekiz Yazılım</p>
+
+          <div className="mt-8 space-y-4 text-base leading-relaxed text-black/75 sm:text-lg">
+            <p>
+              Yazılımı gösteriş için değil, işe yarasın diye kuruyorum. Denizli’de
+              her gün dükkânını açan, ürününü üreten, müşterisine yetişmeye
+              çalışan insanlar var — onların dijital tarafta yalnız kalmasını
+              istemiyorum.
+            </p>
+            <p>
+              Bilkent Üniversitesi CTIS (Bilgisayar Teknolojisi ve Bilişim
+              Sistemleri) mezunuyum. Trendyol ve Insider’da staj yaptım; Halit
+              Alptekin, Selçuk Saraç ve Erkan Uçar ile çalışma fırsatı buldum.
+              Bu süreçte öğrendiğim disiplin ve ürün bakışını, şimdi yereldeki
+              işletmelerin yanında kullanıyorum.
+            </p>
+            <p>
+              Büyük ajanslar genelde büyük bütçelere ve karmaşık projelere
+              bakıyor. Ben tersini seçtim: küçük işletmenin ilk sitesi, butiğin
+              ilk online vitrini, ihtiyaç kadar yazılım. Anlaşılır, sade,
+              sürdürülebilir.
+            </p>
+            <p className="border-l-2 border-ice pl-4 text-black">
+              Güven boş sloganla gelmez. Yanınızda duran biriyle, net işlerle
+              gelir. İşim bu.
+            </p>
+          </div>
+
+          <dl className="mt-10 grid gap-6 border-t border-black pt-8 sm:grid-cols-3">
+            <div>
+              <dt className="text-xs font-medium tracking-[0.2em] uppercase text-black/45">
+                Odak
+              </dt>
+              <dd className="mt-2 text-base text-black">
+                Denizli’deki küçük işletmeler
+              </dd>
+            </div>
+            <div>
+              <dt className="text-xs font-medium tracking-[0.2em] uppercase text-black/45">
+                Yaklaşım
+              </dt>
+              <dd className="mt-2 text-base text-black">
+                Uçtan uca, tek muhatap
+              </dd>
+            </div>
+            <div>
+              <dt className="text-xs font-medium tracking-[0.2em] uppercase text-black/45">
+                İlke
+              </dt>
+              <dd className="mt-2 text-base text-black">
+                Süslü değil, işe yarar
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+  );
+}

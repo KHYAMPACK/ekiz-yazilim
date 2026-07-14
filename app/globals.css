@@ -1,26 +1,178 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ekiz-black: #000000;
+  --ekiz-white: #ffffff;
+  --ekiz-ice: #bfd5eb;
+  --background: var(--ekiz-white);
+  --foreground: var(--ekiz-black);
+  --accent: var(--ekiz-ice);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-black: var(--ekiz-black);
+  --color-white: var(--ekiz-white);
+  --color-ice: var(--ekiz-ice);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-space-grotesk);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-radius: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--ekiz-ice);
+  color: var(--ekiz-black);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ekiz-ice);
+  outline-offset: 2px;
+}
+
+/* —— Logo assemble → hole opens from mark —— */
+html.logo-loader-active,
+html.logo-loader-active body {
+  overflow: hidden;
+}
+
+.logo-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.logo-loader--boot,
+.logo-loader--assemble {
+  background: #000000;
+}
+
+.logo-loader--open {
+  background: transparent;
+}
+
+/*
+  Centered transparent square; box-shadow paints black around it.
+  Size is driven by Web Animations API (see LogoLoader.tsx).
+*/
+.logo-loader__hole {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140px;
+  height: 140px;
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.logo-loader--open .logo-loader__hole {
+  box-shadow: 0 0 0 100vmax #000000;
+}
+
+.logo-loader__stage {
+  position: relative;
+  z-index: 2;
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+}
+
+.logo-loader__layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+}
+
+.logo-loader--assemble .logo-loader__core {
+  animation: logo-piece-core 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.logo-loader--assemble .logo-loader__bracket-tl {
+  animation: logo-piece-tl 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+
+.logo-loader--assemble .logo-loader__bracket-br {
+  animation: logo-piece-br 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+}
+
+@keyframes logo-piece-core {
+  from {
+    transform: scale(0.72);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes logo-piece-tl {
+  from {
+    transform: translate(-18px, -18px);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes logo-piece-br {
+  from {
+    transform: translate(18px, 18px);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+}
+
+.works-masonry {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--ekiz-black);
+  border: 1px solid var(--ekiz-black);
+}
+
+@media (min-width: 640px) {
+  .works-masonry {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .works-masonry {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(140px, auto);
+  }
+
+  .works-masonry > :nth-child(1) {
+    grid-row: span 2;
+  }
+
+  .works-masonry > :nth-child(4) {
+    grid-column: span 2;
+  }
+
+  .works-masonry > :nth-child(6) {
+    grid-row: span 2;
+  }
 }
