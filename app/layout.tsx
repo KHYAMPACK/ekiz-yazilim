@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
+import JsonLd from "@/components/JsonLd";
 import LogoLoader from "@/components/LogoLoader";
 import { site } from "@/lib/site";
+import { seo } from "@/lib/seo";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -10,36 +12,44 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://ekizyazilim.com",
-  ),
+  metadataBase: new URL(seo.siteUrl),
   title: {
-    default: `${site.name} | Denizli web & e-ticaret`,
+    default: seo.title,
     template: `%s | ${site.name}`,
   },
-  description: site.description,
+  description: seo.description,
+  keywords: [...seo.keywords],
+  applicationName: site.name,
+  authors: [{ name: site.name, url: seo.siteUrl }],
+  creator: site.name,
+  publisher: site.name,
+  category: "technology",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: `${site.name} | Denizli web & e-ticaret`,
-    description: site.description,
+    title: seo.title,
+    description: seo.description,
+    url: seo.siteUrl,
+    siteName: site.name,
     locale: "tr_TR",
     type: "website",
-    images: [
-      {
-        url: "/logo/logo_lightwtext.png",
-        width: 2000,
-        height: 2000,
-        alt: site.name,
-      },
-    ],
   },
   twitter: {
-    card: "summary",
-    title: site.name,
-    description: site.description,
+    card: "summary_large_image",
+    title: seo.title,
+    description: seo.description,
   },
-  icons: {
-    icon: [{ url: "/logo/logo_dark.png", type: "image/png" }],
-    apple: [{ url: "/logo/logo_dark.png" }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -50,7 +60,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className={`${spaceGrotesk.variable} h-full antialiased`}>
-      <body className="min-h-full max-w-[100%] overflow-x-clip font-sans text-foreground bg-background">
+      <body className="min-w-0 min-h-full max-w-[100%] overflow-x-clip bg-background font-sans text-foreground">
+        <JsonLd />
         <LogoLoader>{children}</LogoLoader>
       </body>
     </html>

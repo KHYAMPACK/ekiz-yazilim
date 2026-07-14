@@ -45,7 +45,7 @@ export default function HeroIntake() {
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-size-[48px_48px]" />
 
       <div className="relative mx-auto w-full min-w-0 max-w-3xl px-4 py-12 sm:px-6 sm:py-24">
-        <div className="mb-8 flex justify-center overflow-hidden sm:mb-12">
+        <div className="mb-6 flex justify-center overflow-hidden sm:mb-8">
           <span className="sm:hidden">
             <Logo variant="full" tone="onLight" size={64} layout="stacked" />
           </span>
@@ -53,6 +53,10 @@ export default function HeroIntake() {
             <Logo variant="full" tone="onLight" size={96} layout="stacked" />
           </span>
         </div>
+
+        <h1 className="mb-8 text-center text-base font-medium tracking-tight text-black/70 sm:mb-12 sm:text-lg">
+          Denizli’de web sitesi, e-ticaret ve yazılım
+        </h1>
 
         <form onSubmit={handleSubmit} className="flex w-full min-w-0 flex-col gap-4">
           <label

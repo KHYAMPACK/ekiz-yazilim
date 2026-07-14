@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { site, whatsappHref } from "@/lib/site";
+import { phoneDisplay, phoneHref, site, whatsappHref } from "@/lib/site";
 
 export default function ContactSection() {
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">(
@@ -9,6 +9,7 @@ export default function ContactSection() {
   );
   const [error, setError] = useState("");
   const [draft, setDraft] = useState("");
+  const call = phoneHref();
   const wa = whatsappHref(
     "Merhaba, Ekiz Yazılım sitesinden yazıyorum. Kısa bir iş konuşmak istiyorum.",
   );
@@ -86,10 +87,27 @@ export default function ContactSection() {
             Birlikte çalışalım
           </h2>
           <p className="mt-4 max-w-md text-base text-black/65">
-            Kısa yazın yeter. {site.responseTime}.
+            Arayın, yazın veya formu doldurun. {site.responseTime}.
           </p>
 
           <dl className="mt-10 space-y-5 border-t border-black pt-8 text-sm">
+            <div>
+              <dt className="text-xs font-medium tracking-[0.2em] uppercase text-black/45">
+                Telefon
+              </dt>
+              <dd className="mt-1">
+                {call ? (
+                  <a
+                    href={call}
+                    className="text-base text-black transition-colors hover:text-black/60"
+                  >
+                    {phoneDisplay()}
+                  </a>
+                ) : (
+                  <span className="text-base text-black">{phoneDisplay()}</span>
+                )}
+              </dd>
+            </div>
             <div>
               <dt className="text-xs font-medium tracking-[0.2em] uppercase text-black/45">
                 E-posta
@@ -117,16 +135,26 @@ export default function ContactSection() {
             </div>
           </dl>
 
-          {wa && (
-            <a
-              href={wa}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex min-h-12 items-center justify-center border border-black bg-black px-5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-black/85"
-            >
-              WhatsApp’tan yazın
-            </a>
-          )}
+          <div className="mt-8 flex flex-col gap-0 border border-black sm:flex-row">
+            {call && (
+              <a
+                href={call}
+                className="flex min-h-12 flex-1 items-center justify-center bg-black text-sm font-medium tracking-wide text-white transition-colors hover:bg-black/85"
+              >
+                Ara
+              </a>
+            )}
+            {wa && (
+              <a
+                href={wa}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex min-h-12 flex-1 items-center justify-center bg-white text-sm font-medium tracking-wide text-black transition-colors hover:bg-ice/50 ${call ? "border-t border-black sm:border-t-0 sm:border-l" : ""}`}
+              >
+                WhatsApp’tan yazın
+              </a>
+            )}
+          </div>
         </div>
 
         <form

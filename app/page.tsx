@@ -2,6 +2,7 @@ import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import FaqSection from "@/components/FaqSection";
 import FirstClientNote from "@/components/FirstClientNote";
+import FloatingContact from "@/components/FloatingContact";
 import FounderSection from "@/components/FounderSection";
 import HeroIntake from "@/components/HeroIntake";
 import ProcessSection from "@/components/ProcessSection";
@@ -22,6 +23,7 @@ export default function Home() {
         <ContactSection />
       </main>
       <SiteFooter />
+      <FloatingContact />
     </>
   );
 }
