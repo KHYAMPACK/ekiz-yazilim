@@ -44,24 +44,24 @@ export default function HeroIntake() {
     >
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-size-[48px_48px]" />
 
-      <div className="relative mx-auto w-full max-w-3xl px-4 py-12 sm:px-6 sm:py-24">
-        <div className="mb-8 flex justify-center sm:mb-12">
+      <div className="relative mx-auto w-full min-w-0 max-w-3xl px-4 py-12 sm:px-6 sm:py-24">
+        <div className="mb-8 flex justify-center overflow-hidden sm:mb-12">
           <span className="sm:hidden">
-            <Logo variant="full" tone="onLight" size={72} layout="stacked" />
+            <Logo variant="full" tone="onLight" size={64} layout="stacked" />
           </span>
           <span className="hidden sm:inline">
             <Logo variant="full" tone="onLight" size={96} layout="stacked" />
           </span>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex w-full min-w-0 flex-col gap-4">
           <label
             htmlFor="problem"
             className="text-center text-sm font-medium tracking-wide text-black/70"
           >
             Probleminizi bir cümlede anlatın
           </label>
-          <div className="flex flex-col gap-0 border border-black sm:flex-row">
+          <div className="flex w-full min-w-0 flex-col gap-0 border border-black sm:flex-row">
             <input
               id="problem"
               type="text"
@@ -71,7 +71,7 @@ export default function HeroIntake() {
                 setSelected(null);
               }}
               placeholder="Örn. Müşterilerimin online sipariş verebileceği bir site lazım"
-              className="min-h-12 flex-1 border-0 bg-white px-4 text-base text-black placeholder:text-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ice"
+              className="min-h-12 w-full min-w-0 flex-1 border-0 bg-white px-4 text-base text-black placeholder:text-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ice"
             />
             <button
               type="submit"

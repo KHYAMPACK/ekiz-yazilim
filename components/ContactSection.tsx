@@ -74,8 +74,8 @@ export default function ContactSection() {
       className="border-b border-black bg-white"
       aria-labelledby="iletisim-title"
     >
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-16 lg:py-28">
-        <div>
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-16 lg:py-28">
+        <div className="min-w-0">
           <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
             İletişim
           </p>
@@ -97,7 +97,7 @@ export default function ContactSection() {
               <dd className="mt-1">
                 <a
                   href={`mailto:${site.email}`}
-                  className="text-base text-black transition-colors hover:text-black/60"
+                  className="break-all text-base text-black transition-colors hover:text-black/60"
                 >
                   {site.email}
                 </a>
@@ -129,7 +129,10 @@ export default function ContactSection() {
           )}
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-0">
+        <form
+          onSubmit={handleSubmit}
+          className="flex min-w-0 w-full flex-col gap-0"
+        >
           <label className="sr-only" htmlFor="ad">
             Ad
           </label>
@@ -140,7 +143,7 @@ export default function ContactSection() {
             required
             autoComplete="name"
             placeholder="Adınız"
-            className="min-h-12 border border-black border-b-0 bg-white px-4 text-black placeholder:text-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ice"
+            className="min-h-12 w-full min-w-0 border border-black border-b-0 bg-white px-4 text-black placeholder:text-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ice"
           />
           <label className="sr-only" htmlFor="email">
             E-posta
@@ -152,7 +155,7 @@ export default function ContactSection() {
             required
             autoComplete="email"
             placeholder="E-posta"
-            className="min-h-12 border border-black border-b-0 bg-white px-4 text-black placeholder:text-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ice"
+            className="min-h-12 w-full min-w-0 border border-black border-b-0 bg-white px-4 text-black placeholder:text-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ice"
           />
           <label className="sr-only" htmlFor="mesaj">
             Mesaj
@@ -165,12 +168,12 @@ export default function ContactSection() {
             placeholder="Mesajınız"
             defaultValue={draft}
             key={draft || "empty"}
-            className="border border-black border-b-0 bg-white px-4 py-3 text-black placeholder:text-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ice"
+            className="w-full min-w-0 border border-black border-b-0 bg-white px-4 py-3 text-black placeholder:text-black/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ice"
           />
           <button
             type="submit"
             disabled={status === "loading"}
-            className="min-h-12 border border-black bg-black text-sm font-medium tracking-wide text-white transition-colors hover:bg-black/85 disabled:opacity-60"
+            className="min-h-12 w-full border border-black bg-black text-sm font-medium tracking-wide text-white transition-colors hover:bg-black/85 disabled:opacity-60"
           >
             {status === "loading" ? "Gönderiliyor…" : "Gönder"}
           </button>

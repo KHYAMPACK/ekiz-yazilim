@@ -28,7 +28,7 @@ export default function FaqSection() {
       className="border-b border-black bg-white"
       aria-labelledby="sss-title"
     >
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="mb-10 max-w-xl">
           <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
             SSS
@@ -43,11 +43,16 @@ export default function FaqSection() {
 
         <ul className="divide-y divide-black border-y border-black">
           {faqs.map((item) => (
-            <li key={item.q} className="grid gap-3 py-6 sm:grid-cols-[1fr_1.4fr] sm:gap-10">
+            <li
+              key={item.q}
+              className="grid min-w-0 gap-3 py-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] sm:gap-10"
+            >
               <h3 className="text-base font-medium tracking-tight text-black sm:text-lg">
                 {item.q}
               </h3>
-              <p className="text-base leading-relaxed text-black/65">{item.a}</p>
+              <p className="min-w-0 text-base leading-relaxed text-black/65">
+                {item.a}
+              </p>
             </li>
           ))}
         </ul>

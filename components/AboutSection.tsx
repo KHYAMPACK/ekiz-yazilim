@@ -1,7 +1,7 @@
 function DemoFrame({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="mt-6 w-full border border-black bg-white text-black"
+      className="mt-6 w-full min-w-0 overflow-hidden border border-black bg-white text-black"
       style={{ aspectRatio: "10 / 7" }}
     >
       <svg
@@ -9,7 +9,7 @@ function DemoFrame({ children }: { children: React.ReactNode }) {
         width="100%"
         height="100%"
         preserveAspectRatio="xMidYMid meet"
-        className="block h-full w-full"
+        className="block h-full w-full max-w-full"
         aria-hidden="true"
       >
         {children}
@@ -136,8 +136,8 @@ export default function AboutSection() {
       className="border-b border-black bg-white"
       aria-labelledby="hakkimizda-title"
     >
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+      <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+        <div className="grid min-w-0 gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
           <div>
             <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
               Hakkımızda
@@ -207,7 +207,7 @@ export default function AboutSection() {
             {services.map(({ title, body, Demo }, index) => (
               <li
                 key={title}
-                className={`text-black sm:px-6 ${
+                className={`min-w-0 text-black sm:px-6 ${
                   index < services.length - 1
                     ? "sm:border-r sm:border-black"
                     : ""

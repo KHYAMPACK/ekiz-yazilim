@@ -23,7 +23,7 @@ export default function ProcessSection() {
       className="border-b border-black bg-white"
       aria-labelledby="surec-title"
     >
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="mb-10 max-w-xl">
           <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
             Süreç
@@ -43,7 +43,7 @@ export default function ProcessSection() {
           {steps.map((step, i) => (
             <li
               key={step.n}
-              className={`flex flex-col gap-3 p-6 ${
+              className={`flex min-w-0 flex-col gap-3 p-5 sm:p-6 ${
                 i < steps.length - 1
                   ? "border-b border-black sm:border-b-0 sm:border-r"
                   : ""

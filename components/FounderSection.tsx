@@ -7,10 +7,10 @@ export default function FounderSection() {
       className="border-b border-black bg-white"
       aria-labelledby="kurucu-title"
     >
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_1.1fr] lg:gap-16 lg:py-28">
-        <div className="relative mx-auto w-full max-w-sm lg:mx-0 lg:max-w-none">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16 lg:py-28">
+        <div className="relative mx-auto w-full min-w-0 max-w-sm lg:mx-0 lg:max-w-none">
           <div
-            className="relative w-full border border-black bg-ice/30"
+            className="relative w-full overflow-hidden border border-black bg-ice/30"
             style={{ aspectRatio: "3 / 4" }}
           >
             <Image
@@ -18,7 +18,7 @@ export default function FounderSection() {
               alt="Ekiz Yazılım kurucusu Mert"
               fill
               className="object-cover"
-              sizes="(max-width: 1024px) 24rem, 40vw"
+              sizes="(max-width: 1024px) 100vw, 40vw"
               priority={false}
             />
           </div>
@@ -27,14 +27,14 @@ export default function FounderSection() {
           </p>
           <a
             href="mailto:ekizmert3@gmail.com"
-            className="mt-2 inline-block text-sm text-black/70 transition-colors hover:text-black"
+            className="mt-2 block break-all text-sm text-black/70 transition-colors hover:text-black"
           >
             ekizmert3@gmail.com
           </a>
           <p className="mt-1 text-xs text-black/45">Sorularınız için yazın</p>
         </div>
 
-        <div className="flex flex-col justify-center">
+        <div className="flex min-w-0 flex-col justify-center">
           <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
             Kurucudan
           </p>

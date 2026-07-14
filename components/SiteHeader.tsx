@@ -20,13 +20,13 @@ export default function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-black bg-white">
-      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <a
           href="#ust"
-          className="flex shrink-0 items-center"
+          className="flex min-w-0 shrink items-center overflow-hidden"
           onClick={close}
         >
-          <Logo variant="full" tone="onLight" size={26} layout="inline" />
+          <Logo variant="full" tone="onLight" size={24} layout="inline" />
         </a>
 
         <nav className="ml-auto hidden md:block" aria-label="Ana menü">

@@ -50,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className={`${spaceGrotesk.variable} h-full antialiased`}>
-      <body className="min-h-full font-sans text-foreground bg-background">
+      <body className="min-h-full max-w-[100%] overflow-x-clip font-sans text-foreground bg-background">
         <LogoLoader>{children}</LogoLoader>
       </body>
     </html>
