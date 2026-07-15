@@ -8,13 +8,14 @@ export const seo = {
   siteUrl,
   title: `${site.name} | Denizli yazılım, web sitesi ve e-ticaret`,
   description:
-    "Denizli’de küçük işletmeler için web sitesi, e-ticaret başlangıç ve sade yazılım çözümleri. Net kapsam, hızlı iletişim.",
+    "Denizli’de küçük ve büyük işletmeler için web sitesi, e-ticaret başlangıç ve sade yazılım çözümleri. Net kapsam, hızlı iletişim.",
   keywords: [
     "Denizli yazılım",
     "Denizli web sitesi",
     "Denizli e-ticaret",
     "e-ticaret başlangıç Denizli",
     "küçük işletme web sitesi Denizli",
+    "büyük işletme yazılım Denizli",
     "yazılım firması Denizli",
     "Ekiz Yazılım",
   ],
@@ -43,7 +44,7 @@ const faqItems = [
   },
   {
     q: "Denizli dışına iş alıyor musunuz?",
-    a: "Önceliğimiz Denizli’deki küçük işletmeler. Uzaktan da çalışabiliriz; odak şimdilik yerelde.",
+    a: "Önceliğimiz Denizli’deki küçük ve büyük işletmeler. Uzaktan da çalışabiliriz; odak şimdilik yerelde.",
   },
 ] as const;
 
@@ -99,7 +100,7 @@ export function localBusinessJsonLd() {
         knowsAbout: [
           "Web sitesi geliştirme",
           "E-ticaret",
-          "Küçük işletme yazılımı",
+          "İşletme yazılımı",
           "Denizli dijital dönüşüm",
         ],
       },

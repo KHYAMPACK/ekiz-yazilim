@@ -136,8 +136,8 @@ export default function AboutSection() {
       className="border-b border-black bg-white"
       aria-labelledby="hakkimizda-title"
     >
-      <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
-        <div className="grid min-w-0 gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+        <div className="grid min-w-0 gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-14">
           <div>
             <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
               Hakkımızda
@@ -146,15 +146,14 @@ export default function AboutSection() {
               id="hakkimizda-title"
               className="text-3xl font-medium tracking-tight text-black sm:text-4xl"
             >
-              Denizli’deki küçük işletmeler için dijitalleşme.
+              Denizli’deki küçük ve büyük işletmeler için dijitalleşme.
             </h2>
           </div>
-          <div className="space-y-4 text-base leading-relaxed text-black/75 sm:text-lg">
+          <div className="space-y-4 text-base leading-relaxed text-black/80 sm:text-lg">
             <p>
-              Büyük şirketlere hitap eden, abartılı ve karmaşık işler peşinde
-              değiliz. Ekiz Yazılım olarak odak noktamız net: Denizli’de
-              dijitalleşmeye yeni başlayan veya markasını online büyütmek
-              isteyen küçük işletmeler.
+              Abartılı ve karmaşık paketlerin peşinde değiliz. Ekiz Yazılım
+              olarak odak noktamız net: Denizli’de dijitalleşmeye yeni başlayan
+              veya markasını online büyütmek isteyen küçük ve büyük işletmeler.
             </p>
             <p>
               Butik gibi ürün satan işletmeler için e-ticaret, vitrin veya
@@ -162,54 +161,54 @@ export default function AboutSection() {
               hepsini sizin yerinize uçtan uca ele alıyoruz. Süslü değil, işe
               yarayan işler.
             </p>
-            <p className="border-l-2 border-ice pl-4 text-black">
-              Siz işinize bakın. Dijital tarafı biz toparlarız.
+            <p className="border-l-2 border-ice bg-ice/25 py-2 pl-4 text-black">
+              Siz işinize bakın. Dijital tarafı biz hallederiz.
             </p>
           </div>
         </div>
 
-        <div className="mt-16 grid gap-0 border border-black sm:mt-20 sm:grid-cols-3">
-          <div className="border-b border-black p-6 sm:border-b-0 sm:border-r">
-            <p className="mb-2 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
+        <div className="mt-12 grid gap-0 border border-black sm:mt-14 sm:grid-cols-3">
+          <div className="border-b border-black sm:border-b-0 sm:border-r">
+            <p className="border-b border-black bg-ice/50 px-6 py-3 text-xs font-medium tracking-[0.2em] uppercase text-black">
               Kime?
             </p>
-            <p className="text-base leading-relaxed text-black/75">
-              Denizli’deki esnaf, atölye, butik ve yerel markalar. Online satışa
-              geçmek veya kendine ait bir marka sayfası isteyenler. Büyük bütçe
-              değil, düzgün bir dijital başlangıç arayanlar.
+            <p className="p-6 text-base leading-relaxed text-black/80">
+              Denizli’deki esnaf, atölye, butik, yerel markalar ve büyüyen
+              işletmeler. Online satışa geçmek, marka sayfası kurmak veya mevcut
+              sistemi güçlendirmek isteyenler.
             </p>
           </div>
-          <div className="border-b border-black p-6 sm:border-b-0 sm:border-r">
-            <p className="mb-2 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
+          <div className="border-b border-black sm:border-b-0 sm:border-r">
+            <p className="border-b border-black bg-ice/50 px-6 py-3 text-xs font-medium tracking-[0.2em] uppercase text-black">
               Nasıl?
             </p>
-            <p className="text-base leading-relaxed text-black/75">
+            <p className="p-6 text-base leading-relaxed text-black/80">
               Keşiften yayına kadar: ihtiyaç, tasarım, geliştirme, yayına alma
               ve sonrası. Tek muhatap, net süreç.
             </p>
           </div>
-          <div className="p-6">
-            <p className="mb-2 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
+          <div>
+            <p className="border-b border-black bg-ice/50 px-6 py-3 text-xs font-medium tracking-[0.2em] uppercase text-black">
               Nerede?
             </p>
-            <p className="text-base leading-relaxed text-black/75">
+            <p className="p-6 text-base leading-relaxed text-black/80">
               Şimdilik Denizli. Yerel işletmeleri önce burada güçlendiriyoruz;
               adım adım büyürüz.
             </p>
           </div>
         </div>
 
-        <div className="mt-16 sm:mt-20">
+        <div className="mt-12 sm:mt-14">
           <p className="mb-6 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
             Ne yapıyoruz?
           </p>
-          <ul className="grid gap-10 border-t border-black pt-8 sm:grid-cols-3 sm:gap-0">
+          <ul className="grid gap-10 border border-black bg-ice/20 pt-0 sm:grid-cols-3 sm:gap-0">
             {services.map(({ title, body, Demo }, index) => (
               <li
                 key={title}
-                className={`min-w-0 text-black sm:px-6 ${
+                className={`min-w-0 bg-white p-6 text-black ${
                   index < services.length - 1
-                    ? "sm:border-r sm:border-black"
+                    ? "border-b border-black sm:border-r sm:border-b-0"
                     : ""
                 }`}
               >

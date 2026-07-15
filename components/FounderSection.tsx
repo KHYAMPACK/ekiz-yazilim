@@ -7,7 +7,7 @@ export default function FounderSection() {
       className="border-b border-black bg-white"
       aria-labelledby="kurucu-title"
     >
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16 lg:py-28">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 lg:py-20">
         <div className="relative mx-auto w-full min-w-0 max-w-sm lg:mx-0 lg:max-w-none">
           <div
             className="relative w-full overflow-hidden border border-black bg-ice/30"
@@ -48,27 +48,24 @@ export default function FounderSection() {
 
           <div className="mt-8 space-y-4 text-base leading-relaxed text-black/75 sm:text-lg">
             <p>
-              Yazılımı gösteriş için değil, işe yarasın diye kuruyorum. Denizli’de
-              her gün dükkânını açan, ürününü üreten, müşterisine yetişmeye
-              çalışan insanlar var — onların dijital tarafta yalnız kalmasını
-              istemiyorum.
-            </p>
-            <p>
               Bilkent Üniversitesi CTIS (Bilgisayar Teknolojisi ve Bilişim
               Sistemleri) mezunuyum. Trendyol ve Insider’da staj yaptım; Halit
               Alptekin, Selçuk Saraç ve Erkan Uçar ile çalışma fırsatı buldum.
-              Bu süreçte öğrendiğim disiplin ve ürün bakışını, şimdi yereldeki
+              Bu süreçte öğrendiğim disiplin ve ürün bakışını, şimdi Denizli’deki
               işletmelerin yanında kullanıyorum.
             </p>
             <p>
-              Büyük ajanslar genelde büyük bütçelere ve karmaşık projelere
-              bakıyor. Ben tersini seçtim: küçük işletmenin ilk sitesi, butiğin
-              ilk online vitrini, ihtiyaç kadar yazılım. Anlaşılır, sade,
-              sürdürülebilir.
+              Hem küçük hem büyük işletmelerle çalışıyorum: ilk web sitesinden
+              büyüyen bir markanın dijital omurgasına kadar. Anlaşılır, sade ve
+              sürdürülebilir çözümler kuruyorum.
+            </p>
+            <p>
+              Yazılımı, günlük işinizi kolaylaştırsın diye tasarlıyorum.
+              Denizli’de işini büyüten insanlarla yan yana ilerlemek istiyorum —
+              dijital tarafı birlikte netleştiririz.
             </p>
             <p className="border-l-2 border-ice pl-4 text-black">
-              Güven boş sloganla gelmez. Yanınızda duran biriyle, net işlerle
-              gelir. İşim bu.
+              Güven, net iş ve yanınızda duran bir muhatapla gelir. İşim bu.
             </p>
           </div>
 
@@ -78,7 +75,7 @@ export default function FounderSection() {
                 Odak
               </dt>
               <dd className="mt-2 text-base text-black">
-                Denizli’deki küçük işletmeler
+                Denizli’deki küçük ve büyük işletmeler
               </dd>
             </div>
             <div>

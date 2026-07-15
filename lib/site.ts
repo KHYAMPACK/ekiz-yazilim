@@ -10,7 +10,7 @@ export const site = {
   linkedin: "",
   instagram: "",
   description:
-    "Denizli’de küçük işletmeler için web sitesi, e-ticaret başlangıç ve sade yazılım çözümleri.",
+    "Denizli’de küçük ve büyük işletmeler için web sitesi, e-ticaret başlangıç ve sade yazılım çözümleri.",
 } as const;
 
 export function whatsappHref(prefill?: string) {

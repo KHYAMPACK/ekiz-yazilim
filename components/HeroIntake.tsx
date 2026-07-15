@@ -21,6 +21,21 @@ const solutions = [
     label: "E-ticaret sitesi",
     prompt: "Ürün satışı için bir e-ticaret sitesi istiyorum.",
   },
+  {
+    id: "landing",
+    label: "Tanıtım sayfası",
+    prompt: "İşletmemi tanıtan sade bir tanıtım / landing sayfası istiyorum.",
+  },
+  {
+    id: "catalog",
+    label: "Online katalog",
+    prompt: "Ürünlerimi gösteren bir online katalog istiyorum.",
+  },
+  {
+    id: "custom",
+    label: "Özel yazılım",
+    prompt: "İşime özel sade bir yazılım çözümü istiyorum.",
+  },
 ] as const;
 
 type Phase =
@@ -243,9 +258,11 @@ export default function HeroIntake() {
   return (
     <section
       id="ust"
-      className="relative flex min-h-[calc(100svh-3.5rem)] flex-col justify-center border-b border-black bg-white"
+      className="hero-intake relative flex min-h-[calc(100svh-3.5rem)] flex-col justify-center border-b border-black"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-size-[48px_48px]" />
+      <div className="pointer-events-none absolute inset-0 hero-intake__wash" />
+      <div className="pointer-events-none absolute inset-0 hero-intake__grid" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-ice" />
 
       <IntakeProcessModal
         open={phase === "process"}
@@ -254,7 +271,7 @@ export default function HeroIntake() {
         onSuccess={handleProcessSuccess}
       />
 
-      <div className="relative mx-auto w-full min-w-0 max-w-3xl px-4 py-12 sm:px-6 sm:py-24">
+      <div className="relative mx-auto w-full min-w-0 max-w-3xl px-4 py-12 sm:px-6 sm:py-20">
         <div className="ekiz-reveal ekiz-reveal--in mb-6 flex justify-center overflow-hidden sm:mb-8">
           <span className="sm:hidden">
             <Logo variant="full" tone="onLight" size={64} layout="stacked" />
@@ -292,7 +309,7 @@ export default function HeroIntake() {
               htmlFor="problem"
               className="text-center text-sm font-medium tracking-wide text-black/70"
             >
-              Probleminizi bir cümlede anlatın
+               Talebiniz bir cümlede anlatabilirsiniz
             </label>
             <div className="flex w-full min-w-0 flex-col gap-0 border border-black sm:flex-row">
               <input

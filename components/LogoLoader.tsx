@@ -6,9 +6,19 @@ import { LOGO_PATHS } from "./logoPaths";
 type Phase = "boot" | "assemble" | "open" | "gone";
 
 const SESSION_KEY = "ekiz-intro-seen";
+const LINE_EKIZ = "ekiz";
+const LINE_YAZILIM = "YAZILIM";
+const TOTAL_CHARS = LINE_EKIZ.length + LINE_YAZILIM.length;
+const TYPE_START_MS = 1150;
+const TYPE_CHAR_MS = 70;
+const HOLD_AFTER_TYPE_MS = 450;
+const OPEN_MS =
+  TYPE_START_MS + TOTAL_CHARS * TYPE_CHAR_MS + HOLD_AFTER_TYPE_MS;
+const DONE_MS = OPEN_MS + 1200;
 
 export default function LogoLoader({ children }: { children: React.ReactNode }) {
   const [phase, setPhase] = useState<Phase>("boot");
+  const [charCount, setCharCount] = useState(0);
   const holeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -20,14 +30,27 @@ export default function LogoLoader({ children }: { children: React.ReactNode }) 
     document.documentElement.classList.add("logo-loader-active");
     setPhase("assemble");
 
-    const openAt = window.setTimeout(() => setPhase("open"), 1500);
+    const typeTimers: number[] = [];
+    const typeKickoff = window.setTimeout(() => {
+      for (let i = 1; i <= TOTAL_CHARS; i++) {
+        typeTimers.push(
+          window.setTimeout(() => {
+            setCharCount(i);
+          }, (i - 1) * TYPE_CHAR_MS),
+        );
+      }
+    }, TYPE_START_MS);
+
+    const openAt = window.setTimeout(() => setPhase("open"), OPEN_MS);
     const doneAt = window.setTimeout(() => {
       sessionStorage.setItem(SESSION_KEY, "1");
       document.documentElement.classList.remove("logo-loader-active");
       setPhase("gone");
-    }, 2900);
+    }, DONE_MS);
 
     return () => {
+      window.clearTimeout(typeKickoff);
+      typeTimers.forEach((id) => window.clearTimeout(id));
       window.clearTimeout(openAt);
       window.clearTimeout(doneAt);
       document.documentElement.classList.remove("logo-loader-active");
@@ -73,33 +96,53 @@ export default function LogoLoader({ children }: { children: React.ReactNode }) 
         >
           <div ref={holeRef} className="logo-loader__hole" aria-hidden="true" />
 
-          {/* Mark only during assemble — hide the moment expand starts */}
           {phase === "assemble" && (
-            <div className="logo-loader__stage">
-              <svg
-                className="logo-loader__layer logo-loader__core"
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path d={LOGO_PATHS.core} fill="#ffffff" />
-              </svg>
-              <svg
-                className="logo-loader__layer logo-loader__bracket-tl"
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path d={LOGO_PATHS.bracketTl} fill="#ffffff" />
-              </svg>
-              <svg
-                className="logo-loader__layer logo-loader__bracket-br"
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path d={LOGO_PATHS.bracketBr} fill="#ffffff" />
-              </svg>
+            <div className="logo-loader__brand">
+              <div className="logo-loader__stage">
+                <svg
+                  className="logo-loader__layer logo-loader__core"
+                  viewBox="0 0 100 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path d={LOGO_PATHS.core} fill="#ffffff" />
+                </svg>
+                <svg
+                  className="logo-loader__layer logo-loader__bracket-tl"
+                  viewBox="0 0 100 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path d={LOGO_PATHS.bracketTl} fill="#ffffff" />
+                </svg>
+                <svg
+                  className="logo-loader__layer logo-loader__bracket-br"
+                  viewBox="0 0 100 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path d={LOGO_PATHS.bracketBr} fill="#ffffff" />
+                </svg>
+              </div>
+
+              <div className="logo-loader__wordmark" aria-hidden="true">
+                <span className="logo-loader__ekiz">
+                  {LINE_EKIZ.slice(0, Math.min(charCount, LINE_EKIZ.length))}
+                  {charCount > 0 &&
+                    charCount < LINE_EKIZ.length && (
+                      <span className="logo-loader__caret" />
+                    )}
+                </span>
+                <span className="logo-loader__yazilim">
+                  {charCount > LINE_EKIZ.length
+                    ? LINE_YAZILIM.slice(0, charCount - LINE_EKIZ.length)
+                    : ""}
+                  {charCount >= LINE_EKIZ.length &&
+                    charCount < TOTAL_CHARS && (
+                      <span className="logo-loader__caret" />
+                    )}
+                </span>
+              </div>
             </div>
           )}
         </div>

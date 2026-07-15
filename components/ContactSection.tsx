@@ -75,7 +75,7 @@ export default function ContactSection() {
       className="border-b border-black bg-white"
       aria-labelledby="iletisim-title"
     >
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-16 lg:py-28">
+      <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-12 lg:py-20">
         <div className="min-w-0">
           <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
             İletişim
@@ -90,7 +90,7 @@ export default function ContactSection() {
             Arayın, yazın veya formu doldurun. {site.responseTime}.
           </p>
 
-          <dl className="mt-10 space-y-5 border-t border-black pt-8 text-sm">
+          <dl className="mt-8 space-y-5 border border-black bg-ice/40 px-5 py-6 text-sm sm:px-6">
             <div>
               <dt className="text-xs font-medium tracking-[0.2em] uppercase text-black/45">
                 Telefon
@@ -135,7 +135,7 @@ export default function ContactSection() {
             </div>
           </dl>
 
-          <div className="mt-8 flex flex-col gap-0 border border-black sm:flex-row">
+          <div className="mt-0 flex flex-col gap-0 border border-t-0 border-black sm:flex-row">
             {call && (
               <a
                 href={call}

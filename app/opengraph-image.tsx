@@ -77,7 +77,7 @@ export default function OpenGraphImage() {
               lineHeight: 1.35,
             }}
           >
-            Küçük işletmeler için net, sade yazılım çözümleri
+            Küçük ve büyük işletmeler için net, sade yazılım çözümleri
           </div>
         </div>
       </div>

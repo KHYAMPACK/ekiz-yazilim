@@ -35,39 +35,7 @@ export function normalizePhone(raw: string): {
   return { ok: true, digits: e164, display };
 }
 
-const gibberish =
-  /^(asdf+|qwer+|test+|deneme+|xxx+|abc+|123+|aaa+|asdfgh|lorem)/i;
-
-const greetings =
-  /^(merhaba|selam|hello|hi|hey|naber|slm|sa|as)[\s!.?]*$/i;
-
-/** Mock until Gemini is wired. */
-export function classifyIntake(raw: string): IntakeClass {
-  const text = raw.trim().replace(/\s+/g, " ");
-
-  if (text.length < 12) {
-    return {
-      isProblem: false,
-      reason:
-        "Biraz daha net yazın — neye ihtiyacınız olduğunu bir cümlede anlatın.",
-    };
-  }
-
-  if (greetings.test(text) || gibberish.test(text)) {
-    return {
-      isProblem: false,
-      reason:
-        "Bu bir iş problemi gibi durmuyor. Örneğin: online satış, web sitesi veya sipariş sistemi.",
-    };
-  }
-
-  // Very low signal: only punctuation / emoji
-  if (!/[a-zA-ZğüşıöçĞÜŞİÖÇ]{3,}/.test(text)) {
-    return {
-      isProblem: false,
-      reason: "Lütfen probleminizi metin olarak yazın.",
-    };
-  }
-
+/** Temporarily always accepts — re-enable checks when Gemini is wired. */
+export function classifyIntake(_raw: string): IntakeClass {
   return { isProblem: true };
 }

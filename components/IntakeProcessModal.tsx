@@ -81,7 +81,7 @@ const STEPS: readonly Step[] = [
     kind: "tip",
     title: "Biliyor muydunuz?",
     detail:
-      "Denizli’deki yerel işletmeler için sade bir site veya e-ticaret başlangıcı çoğu zaman karmaşık paketlerden daha hızlı sonuç verir.",
+      "Denizli’deki küçük ve büyük işletmeler için sade bir site veya e-ticaret başlangıcı çoğu zaman karmaşık paketlerden daha hızlı sonuç verir.",
     durationMs: 4600,
     progressTo: 88,
   },

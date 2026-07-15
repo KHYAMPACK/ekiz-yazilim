@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: "Denizli dışına iş alıyor musunuz?",
-    a: "Önceliğimiz Denizli’deki küçük işletmeler. Uzaktan da çalışabiliriz; odak şimdilik yerelde.",
+    a: "Önceliğimiz Denizli’deki küçük ve büyük işletmeler. Uzaktan da çalışabiliriz; odak şimdilik yerelde.",
   },
 ] as const;
 
@@ -29,7 +29,7 @@ export default function FaqSection() {
   return (
     <section
       id="sss"
-      className="border-b border-black bg-white"
+      className="border-b border-black bg-ice/35"
       aria-labelledby="sss-title"
     >
       <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
@@ -45,11 +45,13 @@ export default function FaqSection() {
           </h2>
         </div>
 
-        <ul className="divide-y divide-black border-y border-black">
-          {faqs.map((item) => (
+        <ul className="divide-y divide-black border border-black bg-white">
+          {faqs.map((item, i) => (
             <li
               key={item.q}
-              className="grid min-w-0 gap-3 py-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] sm:gap-10"
+              className={`grid min-w-0 gap-3 px-5 py-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] sm:gap-10 sm:px-6 ${
+                i % 2 === 1 ? "bg-ice/30" : "bg-white"
+              }`}
             >
               <h3 className="text-base font-medium tracking-tight text-black sm:text-lg">
                 {item.q}
