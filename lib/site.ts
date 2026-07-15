@@ -9,6 +9,8 @@ export const site = {
   responseTime: "24 saat içinde dönüş",
   linkedin: "",
   instagram: "",
+  /** Optional Cal.com / Calendly / Google Appointments URL */
+  bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL ?? "",
   description:
     "Denizli’de küçük ve büyük işletmeler için web sitesi, e-ticaret başlangıç ve sade yazılım çözümleri.",
 } as const;
