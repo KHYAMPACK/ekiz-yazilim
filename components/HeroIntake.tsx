@@ -240,8 +240,6 @@ export default function HeroIntake() {
     phase === "process" ||
     phase === "success" ||
     phase === "capped";
-  const remaining = Math.max(0, MAX_ATTEMPTS - attempts);
-
   return (
     <section
       id="ust"
@@ -336,11 +334,6 @@ export default function HeroIntake() {
               </p>
             )}
 
-            {!problemLocked && remaining < MAX_ATTEMPTS && remaining > 0 && (
-              <p className="text-center text-xs text-black/45">
-                Kalan deneme: {remaining}
-              </p>
-            )}
           </form>
         )}
 

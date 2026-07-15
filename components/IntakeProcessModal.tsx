@@ -128,7 +128,7 @@ export default function IntakeProcessModal({
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
+  const [progressLabel, setProgressLabel] = useState(0);
   const [answers, setAnswers] = useState<IntakeAnswers>({});
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
@@ -137,6 +137,8 @@ export default function IntakeProcessModal({
 
   const answersRef = useRef<IntakeAnswers>({});
   const wasOpenRef = useRef(false);
+  const barRef = useRef<HTMLDivElement>(null);
+  const progressValueRef = useRef(0);
   const onCloseRef = useRef(onClose);
   const onSuccessRef = useRef(onSuccess);
   const onSubmitRef = useRef(onSubmitPhone);
@@ -145,6 +147,28 @@ export default function IntakeProcessModal({
   onSuccessRef.current = onSuccess;
   onSubmitRef.current = onSubmitPhone;
   answersRef.current = answers;
+
+  function setBarWidth(pct: number, durationMs: number) {
+    const el = barRef.current;
+    progressValueRef.current = pct;
+    if (!el) {
+      setProgressLabel(Math.round(pct));
+      return;
+    }
+    if (durationMs <= 0) {
+      el.style.transition = "none";
+      el.style.width = `${pct}%`;
+      setProgressLabel(Math.round(pct));
+      return;
+    }
+    // Force a clean start so iOS applies the transition reliably.
+    const from = parseFloat(el.style.width) || 0;
+    el.style.transition = "none";
+    el.style.width = `${from}%`;
+    void el.offsetWidth;
+    el.style.transition = `width ${durationMs}ms cubic-bezier(0.22, 1, 0.36, 1)`;
+    el.style.width = `${pct}%`;
+  }
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout> | undefined;
@@ -156,7 +180,8 @@ export default function IntakeProcessModal({
       setMounted(true);
       if (opening) {
         setStepIndex(0);
-        setProgress(0);
+        setProgressLabel(0);
+        progressValueRef.current = 0;
         setAnswers({});
         answersRef.current = {};
         setPhone("");
@@ -165,7 +190,13 @@ export default function IntakeProcessModal({
         setContentKey(0);
       }
       raf = requestAnimationFrame(() => {
-        raf = requestAnimationFrame(() => setVisible(true));
+        raf = requestAnimationFrame(() => {
+          setVisible(true);
+          if (opening && barRef.current) {
+            barRef.current.style.transition = "none";
+            barRef.current.style.width = "0%";
+          }
+        });
       });
     } else {
       wasOpenRef.current = false;
@@ -173,7 +204,8 @@ export default function IntakeProcessModal({
       timeout = setTimeout(() => {
         setMounted(false);
         setStepIndex(0);
-        setProgress(0);
+        setProgressLabel(0);
+        progressValueRef.current = 0;
       }, EXIT_MS);
     }
 
@@ -194,40 +226,51 @@ export default function IntakeProcessModal({
 
   const step = STEPS[stepIndex];
 
+  // CSS-driven progress (works on mobile; rAF + setState was freezing there).
   useEffect(() => {
     if (!open || !visible || !step) return;
-    if (step.kind === "question" || step.kind === "phone") return;
+    if (step.kind === "question" || step.kind === "phone") {
+      setProgressLabel(Math.round(progressValueRef.current));
+      return;
+    }
 
-    const from = stepIndex === 0 ? 0 : STEPS[stepIndex - 1]!.progressTo;
+    const from =
+      stepIndex === 0 ? 0 : (STEPS[stepIndex - 1]?.progressTo ?? 0);
     const to = step.progressTo;
-    const start = performance.now();
-    let raf = 0;
-    let finished = false;
+    const duration = step.durationMs;
 
-    const finish = () => {
-      if (finished || !wasOpenRef.current) return;
-      finished = true;
-      setProgress(to);
+    setBarWidth(from, 0);
+    setProgressLabel(Math.round(from));
+
+    let labelTimer = 0;
+    const startAnim = window.setTimeout(() => {
+      setBarWidth(to, duration);
+      const labelStart = performance.now();
+      labelTimer = window.setInterval(() => {
+        const t = Math.min(1, (performance.now() - labelStart) / duration);
+        const eased = 1 - (1 - t) * (1 - t);
+        setProgressLabel(Math.round(from + (to - from) * eased));
+      }, 80);
+    }, 40);
+
+    const done = window.setTimeout(() => {
+      window.clearInterval(labelTimer);
+      setProgressLabel(to);
+      progressValueRef.current = to;
+      if (!wasOpenRef.current) return;
       if (stepIndex < STEPS.length - 1) {
         setStepIndex((i) => i + 1);
         setContentKey((k) => k + 1);
       }
-    };
+    }, duration + 80);
 
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / step.durationMs);
-      const eased = 1 - (1 - t) * (1 - t);
-      setProgress(from + (to - from) * eased);
-      if (t < 1) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        finish();
-      }
+    return () => {
+      window.clearTimeout(startAnim);
+      window.clearInterval(labelTimer);
+      window.clearTimeout(done);
     };
-
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [open, visible, step, stepIndex]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- animate per step only
+  }, [open, visible, stepIndex]);
 
   function requestClose() {
     if (submitting || !open) return;
@@ -239,13 +282,14 @@ export default function IntakeProcessModal({
     const nextAnswers = { ...answersRef.current, [step.id]: option };
     answersRef.current = nextAnswers;
     setAnswers(nextAnswers);
-    setProgress(step.progressTo);
+    setBarWidth(step.progressTo, 450);
+    setProgressLabel(step.progressTo);
     window.setTimeout(() => {
       if (stepIndex < STEPS.length - 1) {
         setStepIndex((i) => i + 1);
         setContentKey((k) => k + 1);
       }
-    }, 240);
+    }, 280);
   }
 
   async function handlePhoneSubmit(e: React.FormEvent) {
@@ -322,13 +366,14 @@ export default function IntakeProcessModal({
               {step?.kind === "phone" ? "Son adım" : "Hazırlanıyor"}
             </p>
             <p className="text-xs tabular-nums text-black/45">
-              %{Math.round(progress)}
+              %{progressLabel}
             </p>
           </div>
           <div className="mt-3 h-1.5 w-full overflow-hidden bg-black/10">
             <div
-              className="h-full bg-black transition-[width] duration-300 ease-out"
-              style={{ width: `${progress}%` }}
+              ref={barRef}
+              className="h-full bg-black"
+              style={{ width: "0%" }}
             />
           </div>
         </div>
