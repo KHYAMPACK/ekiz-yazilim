@@ -5,44 +5,40 @@ import { normalizePhone } from "@/lib/intake";
 
 export type IntakeAnswers = Record<string, string>;
 
-type Step =
-  | {
-      kind: "scan";
-      title: string;
-      detail: string;
-      durationMs: number;
-      progressTo: number;
-    }
-  | {
-      kind: "tip";
-      title: string;
-      detail: string;
-      durationMs: number;
-      progressTo: number;
-    }
-  | {
-      kind: "question";
-      id: string;
-      title: string;
-      detail: string;
-      options: readonly string[];
-      progressTo: number;
-    }
-  | {
-      kind: "wrap";
-      title: string;
-      detail: string;
-      durationMs: number;
-      progressTo: number;
-    }
-  | { kind: "phone"; progressTo: number };
+type TimedStep = {
+  kind: "scan" | "tip" | "wrap";
+  title: string;
+  detail: string;
+  durationMs: number;
+  progressTo: number;
+};
+
+type QuestionStep = {
+  kind: "question";
+  id: string;
+  title: string;
+  detail: string;
+  options: readonly string[];
+  progressTo: number;
+};
+
+type PhoneStep = { kind: "phone"; progressTo: number };
+
+type Step = TimedStep | QuestionStep | PhoneStep;
+
+/** Comfortable reading time for Turkish tip copy. */
+function tipDurationMs(detail: string) {
+  const words = detail.trim().split(/\s+/).filter(Boolean).length;
+  // ~2.8s per word is too slow; ~0.45s/word + buffer ≈ relaxed reading
+  return Math.min(14000, Math.max(8500, Math.round(words * 420) + 2500));
+}
 
 const STEPS: readonly Step[] = [
   {
     kind: "scan",
     title: "Hazırlanıyor",
     detail: "İhtiyacınıza bakıyoruz. Kısa ipuçlarıyla devam ediyoruz.",
-    durationMs: 2200,
+    durationMs: 3200,
     progressTo: 8,
   },
   {
@@ -50,7 +46,9 @@ const STEPS: readonly Step[] = [
     title: "Biliyor muydunuz?",
     detail:
       "İyi kurulmuş bir e-ticaret sitesi, satışları ciddi oranda artırabilir — bazı işletmelerde %60’a varan büyüme görülür.",
-    durationMs: 4600,
+    durationMs: tipDurationMs(
+      "İyi kurulmuş bir e-ticaret sitesi, satışları ciddi oranda artırabilir — bazı işletmelerde %60’a varan büyüme görülür.",
+    ),
     progressTo: 26,
   },
   {
@@ -66,7 +64,9 @@ const STEPS: readonly Step[] = [
     title: "Biliyor muydunuz?",
     detail:
       "Müşterilerin büyük kısmı alışverişten önce işletmeyi internette arar. Net bir web sitesi, güvenin ilk adımıdır.",
-    durationMs: 4600,
+    durationMs: tipDurationMs(
+      "Müşterilerin büyük kısmı alışverişten önce işletmeyi internette arar. Net bir web sitesi, güvenin ilk adımıdır.",
+    ),
     progressTo: 58,
   },
   {
@@ -82,14 +82,16 @@ const STEPS: readonly Step[] = [
     title: "Biliyor muydunuz?",
     detail:
       "Denizli’deki küçük ve büyük işletmeler için sade bir site veya e-ticaret başlangıcı çoğu zaman karmaşık paketlerden daha hızlı sonuç verir.",
-    durationMs: 4600,
+    durationMs: tipDurationMs(
+      "Denizli’deki küçük ve büyük işletmeler için sade bir site veya e-ticaret başlangıcı çoğu zaman karmaşık paketlerden daha hızlı sonuç verir.",
+    ),
     progressTo: 88,
   },
   {
     kind: "wrap",
     title: "Neredeyse bitti",
     detail: "İsterseniz numaranızı bırakın — sizi arayalım.",
-    durationMs: 2000,
+    durationMs: 3500,
     progressTo: 100,
   },
   { kind: "phone", progressTo: 100 },
@@ -107,6 +109,21 @@ export function formatIntakeAnswers(answers: IntakeAnswers) {
   return Object.entries(answers)
     .map(([key, value]) => `${LABELS[key] ?? key}: ${value}`)
     .join("\n");
+}
+
+function sleep(ms: number, signal: AbortSignal) {
+  return new Promise<void>((resolve, reject) => {
+    if (signal.aborted) {
+      reject(new DOMException("Aborted", "AbortError"));
+      return;
+    }
+    const id = window.setTimeout(() => resolve(), ms);
+    const onAbort = () => {
+      window.clearTimeout(id);
+      reject(new DOMException("Aborted", "AbortError"));
+    };
+    signal.addEventListener("abort", onAbort, { once: true });
+  });
 }
 
 type Props = {
@@ -136,9 +153,9 @@ export default function IntakeProcessModal({
   const [contentKey, setContentKey] = useState(0);
 
   const answersRef = useRef<IntakeAnswers>({});
-  const wasOpenRef = useRef(false);
   const barRef = useRef<HTMLDivElement>(null);
   const progressValueRef = useRef(0);
+  const questionResolverRef = useRef<((option: string) => void) | null>(null);
   const onCloseRef = useRef(onClose);
   const onSuccessRef = useRef(onSuccess);
   const onSubmitRef = useRef(onSubmitPhone);
@@ -148,20 +165,18 @@ export default function IntakeProcessModal({
   onSubmitRef.current = onSubmitPhone;
   answersRef.current = answers;
 
-  function setBarWidth(pct: number, durationMs: number) {
+  function setBarWidth(pct: number, durationMs: number, syncLabel = true) {
     const el = barRef.current;
     progressValueRef.current = pct;
-    if (!el) {
-      setProgressLabel(Math.round(pct));
-      return;
-    }
+    if (syncLabel) setProgressLabel(Math.round(pct));
+    if (!el) return;
+
     if (durationMs <= 0) {
       el.style.transition = "none";
       el.style.width = `${pct}%`;
-      setProgressLabel(Math.round(pct));
       return;
     }
-    // Force a clean start so iOS applies the transition reliably.
+
     const from = parseFloat(el.style.width) || 0;
     el.style.transition = "none";
     el.style.width = `${from}%`;
@@ -170,36 +185,88 @@ export default function IntakeProcessModal({
     el.style.width = `${pct}%`;
   }
 
+  function animateProgress(
+    from: number,
+    to: number,
+    durationMs: number,
+    signal: AbortSignal,
+  ) {
+    return new Promise<void>((resolve, reject) => {
+      if (signal.aborted) {
+        reject(new DOMException("Aborted", "AbortError"));
+        return;
+      }
+
+      setBarWidth(from, 0, true);
+
+      let raf1 = 0;
+      let raf2 = 0;
+      let labelTimer = 0;
+      let doneTimer = 0;
+
+      const cleanup = () => {
+        cancelAnimationFrame(raf1);
+        cancelAnimationFrame(raf2);
+        window.clearInterval(labelTimer);
+        window.clearTimeout(doneTimer);
+        signal.removeEventListener("abort", onAbort);
+      };
+
+      const onAbort = () => {
+        cleanup();
+        reject(new DOMException("Aborted", "AbortError"));
+      };
+      signal.addEventListener("abort", onAbort, { once: true });
+
+      raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() => {
+          setBarWidth(to, durationMs, false);
+          const labelStart = performance.now();
+          labelTimer = window.setInterval(() => {
+            const t = Math.min(1, (performance.now() - labelStart) / durationMs);
+            const eased = 1 - (1 - t) * (1 - t);
+            setProgressLabel(Math.round(from + (to - from) * eased));
+          }, 100);
+
+          doneTimer = window.setTimeout(() => {
+            cleanup();
+            setProgressLabel(to);
+            progressValueRef.current = to;
+            resolve();
+          }, durationMs + 50);
+        });
+      });
+    });
+  }
+
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout> | undefined;
     let raf = 0;
 
     if (open) {
-      const opening = !wasOpenRef.current;
-      wasOpenRef.current = true;
       setMounted(true);
-      if (opening) {
-        setStepIndex(0);
-        setProgressLabel(0);
-        progressValueRef.current = 0;
-        setAnswers({});
-        answersRef.current = {};
-        setPhone("");
-        setPhoneError("");
-        setSubmitting(false);
-        setContentKey(0);
-      }
+      setStepIndex(0);
+      setProgressLabel(0);
+      progressValueRef.current = 0;
+      setAnswers({});
+      answersRef.current = {};
+      setPhone("");
+      setPhoneError("");
+      setSubmitting(false);
+      setContentKey(0);
+      questionResolverRef.current = null;
+
       raf = requestAnimationFrame(() => {
         raf = requestAnimationFrame(() => {
           setVisible(true);
-          if (opening && barRef.current) {
+          if (barRef.current) {
             barRef.current.style.transition = "none";
             barRef.current.style.width = "0%";
           }
         });
       });
     } else {
-      wasOpenRef.current = false;
+      questionResolverRef.current = null;
       setVisible(false);
       timeout = setTimeout(() => {
         setMounted(false);
@@ -224,53 +291,69 @@ export default function IntakeProcessModal({
     };
   }, [mounted, visible]);
 
-  const step = STEPS[stepIndex];
-
-  // CSS-driven progress (works on mobile; rAF + setState was freezing there).
+  // Single sequential runner — avoids stuck progress from overlapping effect cleanups.
   useEffect(() => {
-    if (!open || !visible || !step) return;
-    if (step.kind === "question" || step.kind === "phone") {
-      setProgressLabel(Math.round(progressValueRef.current));
-      return;
+    if (!open || !visible) return;
+
+    const ac = new AbortController();
+    const { signal } = ac;
+
+    async function run() {
+      let from = 0;
+
+      for (let i = 0; i < STEPS.length; i++) {
+        if (signal.aborted) return;
+
+        const current = STEPS[i]!;
+        setStepIndex(i);
+        setContentKey((k) => k + 1);
+
+        if (current.kind === "phone") {
+          setBarWidth(100, 300);
+          return;
+        }
+
+        if (current.kind === "question") {
+          setProgressLabel(Math.round(from));
+          const choice = await new Promise<string>((resolve, reject) => {
+            questionResolverRef.current = resolve;
+            const onAbort = () => {
+              questionResolverRef.current = null;
+              reject(new DOMException("Aborted", "AbortError"));
+            };
+            signal.addEventListener("abort", onAbort, { once: true });
+          });
+
+          if (signal.aborted) return;
+
+          const nextAnswers = {
+            ...answersRef.current,
+            [current.id]: choice,
+          };
+          answersRef.current = nextAnswers;
+          setAnswers(nextAnswers);
+          setBarWidth(current.progressTo, 450);
+          from = current.progressTo;
+          await sleep(320, signal);
+          continue;
+        }
+
+        await animateProgress(from, current.progressTo, current.durationMs, signal);
+        from = current.progressTo;
+      }
     }
 
-    const from =
-      stepIndex === 0 ? 0 : (STEPS[stepIndex - 1]?.progressTo ?? 0);
-    const to = step.progressTo;
-    const duration = step.durationMs;
-
-    setBarWidth(from, 0);
-    setProgressLabel(Math.round(from));
-
-    let labelTimer = 0;
-    const startAnim = window.setTimeout(() => {
-      setBarWidth(to, duration);
-      const labelStart = performance.now();
-      labelTimer = window.setInterval(() => {
-        const t = Math.min(1, (performance.now() - labelStart) / duration);
-        const eased = 1 - (1 - t) * (1 - t);
-        setProgressLabel(Math.round(from + (to - from) * eased));
-      }, 80);
-    }, 40);
-
-    const done = window.setTimeout(() => {
-      window.clearInterval(labelTimer);
-      setProgressLabel(to);
-      progressValueRef.current = to;
-      if (!wasOpenRef.current) return;
-      if (stepIndex < STEPS.length - 1) {
-        setStepIndex((i) => i + 1);
-        setContentKey((k) => k + 1);
-      }
-    }, duration + 80);
+    run().catch((err) => {
+      if (err instanceof DOMException && err.name === "AbortError") return;
+      console.error(err);
+    });
 
     return () => {
-      window.clearTimeout(startAnim);
-      window.clearInterval(labelTimer);
-      window.clearTimeout(done);
+      ac.abort();
+      questionResolverRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- animate per step only
-  }, [open, visible, stepIndex]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, visible]);
 
   function requestClose() {
     if (submitting || !open) return;
@@ -278,18 +361,10 @@ export default function IntakeProcessModal({
   }
 
   function pickOption(option: string) {
-    if (!step || step.kind !== "question" || !open) return;
-    const nextAnswers = { ...answersRef.current, [step.id]: option };
-    answersRef.current = nextAnswers;
-    setAnswers(nextAnswers);
-    setBarWidth(step.progressTo, 450);
-    setProgressLabel(step.progressTo);
-    window.setTimeout(() => {
-      if (stepIndex < STEPS.length - 1) {
-        setStepIndex((i) => i + 1);
-        setContentKey((k) => k + 1);
-      }
-    }, 280);
+    const resolve = questionResolverRef.current;
+    if (!resolve || !open) return;
+    questionResolverRef.current = null;
+    resolve(option);
   }
 
   async function handlePhoneSubmit(e: React.FormEvent) {
@@ -320,6 +395,7 @@ export default function IntakeProcessModal({
 
   if (!mounted) return null;
 
+  const step = STEPS[stepIndex];
   const questionNumber =
     STEPS.slice(0, stepIndex + 1).filter((s) => s.kind === "question").length;
 
@@ -423,7 +499,7 @@ export default function IntakeProcessModal({
               >
                 {step.title}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-black/75">
+              <p className="mt-4 text-base leading-relaxed text-black/75 sm:text-lg">
                 {step.detail}
               </p>
             </>
@@ -440,8 +516,8 @@ export default function IntakeProcessModal({
                   Numaranızı bırakın, sizi arayalım.
                 </h2>
                 <p className="mt-2 text-sm text-black/60">
-                  Girdiğiniz numarayı arayarak kısa sürede dönüş yaparız. İstemezseniz
-                  kapatabilirsiniz.
+                  Girdiğiniz numarayı arayarak kısa sürede dönüş yaparız.
+                  İstemezseniz kapatabilirsiniz.
                 </p>
               </div>
               <div className="flex w-full min-w-0 flex-col gap-0 border border-black sm:flex-row">
@@ -490,7 +566,9 @@ export default function IntakeProcessModal({
               >
                 {step?.title}
               </h2>
-              <p className="mt-2 text-sm text-black/60">{step?.detail}</p>
+              <p className="mt-2 text-sm text-black/60 sm:text-base">
+                {step?.detail}
+              </p>
             </>
           )}
         </div>
