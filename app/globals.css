@@ -195,3 +195,91 @@ html.logo-loader-active body {
     grid-row: span 2;
   }
 }
+
+/* —— Motion system —— */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  summary {
+    transition:
+      color 0.28s ease,
+      background-color 0.28s ease,
+      border-color 0.28s ease,
+      opacity 0.28s ease,
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.28s ease;
+  }
+
+  .ekiz-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .ekiz-reveal--in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .intake-step-in {
+    animation: intake-step-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ekiz-reveal,
+  .ekiz-reveal--in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .intake-step-in {
+    animation: none;
+  }
+}
+
+/* Intake process modal */
+.intake-pulse-dot {
+  animation: intake-pulse-dot 1s ease-in-out infinite;
+}
+
+@keyframes intake-pulse-dot {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes intake-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intake-pulse-dot {
+    animation: none;
+    opacity: 1;
+  }
+}

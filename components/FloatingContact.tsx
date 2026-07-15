@@ -23,8 +23,10 @@ export default function FloatingContact() {
 
   return (
     <div
-      className={`fixed right-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-40 w-[min(18.5rem,calc(100vw-1.5rem))] border border-black bg-white shadow-none transition-opacity duration-300 sm:right-5 ${
-        visible ? "opacity-100" : "pointer-events-none opacity-0"
+      className={`fixed right-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-40 w-[min(18.5rem,calc(100vw-1.5rem))] border border-black bg-white shadow-none transition-[opacity,transform] duration-500 ease-out sm:right-5 ${
+        visible
+          ? "translate-y-0 opacity-100"
+          : "pointer-events-none translate-y-3 opacity-0"
       }`}
       role="complementary"
       aria-label="Hızlı iletişim"

@@ -6,6 +6,7 @@ import FloatingContact from "@/components/FloatingContact";
 import FounderSection from "@/components/FounderSection";
 import HeroIntake from "@/components/HeroIntake";
 import ProcessSection from "@/components/ProcessSection";
+import Reveal from "@/components/Reveal";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 
@@ -15,14 +16,28 @@ export default function Home() {
       <SiteHeader />
       <main>
         <HeroIntake />
-        <AboutSection />
-        <ProcessSection />
-        <FirstClientNote />
-        <FounderSection />
-        <FaqSection />
-        <ContactSection />
+        <Reveal>
+          <AboutSection />
+        </Reveal>
+        <Reveal delay={40}>
+          <ProcessSection />
+        </Reveal>
+        <Reveal delay={40}>
+          <FirstClientNote />
+        </Reveal>
+        <Reveal delay={40}>
+          <FounderSection />
+        </Reveal>
+        <Reveal delay={40}>
+          <FaqSection />
+        </Reveal>
+        <Reveal delay={40}>
+          <ContactSection />
+        </Reveal>
       </main>
-      <SiteFooter />
+      <Reveal>
+        <SiteFooter />
+      </Reveal>
       <FloatingContact />
     </>
   );
