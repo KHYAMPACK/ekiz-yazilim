@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 48" fill="none" role="img" aria-label="Powered by ekiz YAZILIM">
+  <!-- Preferred footer badge (Basak style): Powered by + black tile with white E core only + wordmark. Transparent bg for dark footers. -->
+  <text x="0" y="30" fill="#9a9590" font-family="'Space Grotesk', Arial, Helvetica, sans-serif" font-size="12" font-weight="400">Powered by</text>
+  <!-- Black tile @ x=90 -->
+  <rect x="90" y="8" width="32" height="32" fill="#000000"/>
+  <!-- White core E scaled into tile (core paths in 0..100 → map to 90+3 .. 90+29, size 26) -->
+  <g transform="translate(90 8) scale(0.32)" fill="#ffffff">
+    <path d="M29.9 12H73.7L84.6 30.8H40.8L51.7 50L40.8 69.1H84.6L73.7 87.9H29.9L19 69.1L29.9 50L19 30.8L29.9 12Z"/>
+  </g>
+  <text x="132" y="29" fill="#9a9590" font-family="'Space Grotesk', Arial, Helvetica, sans-serif" font-size="15" font-weight="400">ekiz</text>
+  <text x="168" y="29" fill="#ffffff" font-family="'Space Grotesk', Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="0.04em">YAZILIM</text>
+</svg>

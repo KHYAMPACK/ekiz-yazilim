@@ -6,6 +6,7 @@ import Logo from "./Logo";
 const links = [
   { href: "#hakkimizda", label: "Hakkımızda" },
   { href: "#surec", label: "Süreç" },
+  { href: "#isler", label: "İşler" },
   { href: "#kurucu", label: "Kurucu" },
   { href: "#sss", label: "SSS" },
   { href: "#iletisim", label: "İletişim" },

@@ -1,11 +1,14 @@
-const projects = [
-  { title: "Proje A", meta: "Web sitesi — yakında" },
-  { title: "Proje B", meta: "E-ticaret — yakında" },
-  { title: "Proje C", meta: "Kurumsal — yakında" },
-  { title: "Proje D", meta: "Ürün — yakında" },
-  { title: "Proje E", meta: "Landing — yakında" },
-  { title: "Proje F", meta: "Panel — yakında" },
-];
+import Image from "next/image";
+
+const project = {
+  name: "Özel Başak Akademi",
+  meta: "Kurumsal web sitesi — eğitim",
+  blurb:
+    "Denizli’de bir eğitim kurumu için kurumsal site: programlar, iletişim ve mobil uyumlu yapı.",
+  href: "https://basakakademi20.com",
+  desktop: "/works/basak-desktop.png",
+  mobile: "/works/basak-mobile.png",
+} as const;
 
 export default function WorksSection() {
   return (
@@ -14,7 +17,7 @@ export default function WorksSection() {
       className="border-b border-black bg-white"
       aria-labelledby="isler-title"
     >
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+      <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="mb-10 max-w-xl">
           <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
             İşler
@@ -23,29 +26,102 @@ export default function WorksSection() {
             id="isler-title"
             className="text-3xl font-medium tracking-tight text-black sm:text-4xl"
           >
-            Daha önce ne yaptık
+            Yaptıklarımız
           </h2>
           <p className="mt-3 text-base text-black/65">
-            Çalışmalar burada listelenecek. Şimdilik yerleşim iskeleti.
+            Yayında olan işlerden biri.
           </p>
         </div>
 
-        <div className="works-masonry">
-          {projects.map((project) => (
-            <article
-              key={project.title}
-              className="flex min-h-[160px] flex-col justify-between bg-white p-5 transition-colors hover:bg-ice/30"
-            >
-              <div className="aspect-video w-full border border-dashed border-black/25 bg-[linear-gradient(135deg,#bfd5eb33_25%,transparent_25%,transparent_50%,#bfd5eb33_50%,#bfd5eb33_75%,transparent_75%,transparent)] bg-size-[16px_16px]" />
-              <div className="mt-4">
-                <h3 className="text-lg font-medium tracking-tight text-black">
-                  {project.title}
-                </h3>
-                <p className="mt-1 text-sm text-black/50">{project.meta}</p>
+        <article className="border border-black">
+          <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.45fr)]">
+            <div className="flex flex-col justify-center border-b border-black bg-ice/30 px-5 py-8 sm:px-8 sm:py-10 lg:border-r lg:border-b-0">
+              <p className="text-xs font-medium tracking-[0.2em] uppercase text-black/45">
+                {project.meta}
+              </p>
+              <h3 className="mt-3 text-2xl font-medium tracking-tight text-black sm:text-3xl">
+                {project.name}
+              </h3>
+              <p className="mt-4 max-w-md text-base leading-relaxed text-black/70">
+                {project.blurb}
+              </p>
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 inline-flex min-h-12 w-fit items-center border border-black bg-black px-5 text-sm font-medium tracking-wide text-white transition-colors hover:bg-black/85"
+              >
+                Siteyi gör
+              </a>
+            </div>
+
+            {/* Device stage — laptop + overlapping iPhone 13 */}
+            <div className="relative overflow-hidden bg-[linear-gradient(165deg,#eef3f8_0%,#e2eaf3_55%,#d7e2ee_100%)] px-4 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+              <div className="relative mx-auto max-w-[34rem] pb-8 max-sm:pb-0 sm:pb-10">
+                {/* Laptop */}
+                <div className="relative z-0 mx-auto w-[92%] sm:w-[88%]">
+                  {/* Screen bezel */}
+                  <div className="border-[5px] border-b-0 border-black bg-black pt-2 sm:border-[6px] sm:pt-2.5">
+                    <div
+                      className="mx-auto mb-1.5 h-1 w-1 bg-white/40 sm:mb-2"
+                      style={{ borderRadius: "9999px" }}
+                      aria-hidden
+                    />
+                    {/* Exact 1920×1080 */}
+                    <div className="relative aspect-video w-full overflow-hidden bg-white">
+                      <Image
+                        src={project.desktop}
+                        alt={`${project.name} — masaüstü görünüm`}
+                        width={1920}
+                        height={1080}
+                        className="h-full w-full object-cover object-top"
+                        sizes="(max-width: 1024px) 90vw, 520px"
+                        priority={false}
+                      />
+                    </div>
+                  </div>
+                  {/* Laptop base */}
+                  <div className="relative h-2.5 bg-black sm:h-3">
+                    <div className="absolute top-0 left-1/2 h-1.5 w-[18%] -translate-x-1/2 bg-black/80 sm:h-2" aria-hidden />
+                  </div>
+                  <div
+                    className="mx-auto h-1.5 w-[108%] -translate-x-[3.7%] bg-black sm:h-2"
+                    aria-hidden
+                  />
+                </div>
+
+                {/* iPhone 13 — 731×1462 */}
+                <div
+                  className="device-iphone13 absolute z-10 border-[3px] border-black bg-black max-sm:relative max-sm:mx-auto max-sm:mt-8 max-sm:w-[44%] sm:right-[-2%] sm:bottom-0 sm:w-[30%]"
+                  style={{
+                    borderRadius: "1.85rem",
+                    aspectRatio: "731 / 1462",
+                  }}
+                >
+                  {/* Notch (iPhone 13) */}
+                  <div
+                    className="absolute top-0 left-1/2 z-20 h-[3.4%] w-[42%] -translate-x-1/2 bg-black"
+                    style={{ borderRadius: "0 0 0.75rem 0.75rem" }}
+                    aria-hidden
+                  />
+                  <div
+                    className="absolute inset-[2.5px] overflow-hidden bg-white"
+                    style={{ borderRadius: "1.65rem" }}
+                  >
+                    <Image
+                      src={project.mobile}
+                      alt={`${project.name} — iPhone 13 görünüm`}
+                      width={731}
+                      height={1462}
+                      className="h-full w-full object-cover object-top"
+                      sizes="160px"
+                    />
+                  </div>
+                </div>
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   );

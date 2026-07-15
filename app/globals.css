@@ -23,6 +23,8 @@
   border-radius: 0;
 }
 
+/* Device mockups use inline border-radius (beats this rule). */
+
 html {
   scroll-behavior: smooth;
   overflow-x: clip;

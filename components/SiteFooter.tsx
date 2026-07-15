@@ -49,6 +49,9 @@ export default function SiteFooter() {
           <Link href="/kvkk" className="transition-colors hover:text-white">
             KVKK
           </Link>
+          <Link href="/#isler" className="transition-colors hover:text-white">
+            İşler
+          </Link>
           <Link href="/#sss" className="transition-colors hover:text-white">
             SSS
           </Link>

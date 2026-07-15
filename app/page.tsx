@@ -9,6 +9,7 @@ import ProcessSection from "@/components/ProcessSection";
 import Reveal from "@/components/Reveal";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
+import WorksSection from "@/components/WorksSection";
 
 export default function Home() {
   return (
@@ -21,6 +22,9 @@ export default function Home() {
         </Reveal>
         <Reveal delay={40}>
           <ProcessSection />
+        </Reveal>
+        <Reveal delay={40}>
+          <WorksSection />
         </Reveal>
         <Reveal delay={40}>
           <FirstClientNote />
