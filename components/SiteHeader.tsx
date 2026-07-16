@@ -1,19 +1,24 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Logo from "./Logo";
 
 const links = [
-  { href: "#hakkimizda", label: "Hakkımızda" },
-  { href: "#surec", label: "Süreç" },
-  { href: "#isler", label: "İşler" },
-  { href: "#kurucu", label: "Kurucu" },
-  { href: "#sss", label: "SSS" },
-  { href: "#iletisim", label: "İletişim" },
-];
+  { href: "/#hakkimizda", label: "Hakkımızda" },
+  { href: "/#surec", label: "Süreç" },
+  { href: "/#isler", label: "İşler" },
+  { href: "/ilham", label: "İlham", route: true },
+  { href: "/#kurucu", label: "Kurucu" },
+  { href: "/#sss", label: "SSS" },
+  { href: "/#iletisim", label: "İletişim" },
+] as const;
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const onHome = pathname === "/";
 
   function close() {
     setOpen(false);
@@ -22,24 +27,37 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-black bg-white/95 backdrop-blur-sm">
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-        <a
-          href="#ust"
+        <Link
+          href={onHome ? "#ust" : "/"}
           className="flex min-w-0 shrink items-center overflow-hidden"
           onClick={close}
         >
           <Logo variant="full" tone="onLight" size={24} layout="inline" />
-        </a>
+        </Link>
 
         <nav className="ml-auto hidden md:block" aria-label="Ana menü">
           <ul className="flex items-center justify-end gap-6 lg:gap-8">
             {links.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-sm font-medium tracking-wide text-black transition-colors hover:text-black/60"
-                >
-                  {link.label}
-                </a>
+                {"route" in link && link.route ? (
+                  <Link
+                    href={link.href}
+                    className={[
+                      "text-sm font-medium tracking-wide transition-colors hover:text-black/60",
+                      pathname === link.href ? "text-black" : "text-black",
+                    ].join(" ")}
+                    aria-current={pathname === link.href ? "page" : undefined}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    className="text-sm font-medium tracking-wide text-black transition-colors hover:text-black/60"
+                  >
+                    {link.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -76,14 +94,28 @@ export default function SiteHeader() {
         >
           <ul className="mx-auto w-full max-w-6xl px-4 sm:px-6">
             {links.map((link) => (
-              <li key={link.href} className="border-b border-black/10 last:border-0">
-                <a
-                  href={link.href}
-                  onClick={close}
-                  className="flex min-h-12 items-center text-sm font-medium tracking-wide text-black"
-                >
-                  {link.label}
-                </a>
+              <li
+                key={link.href}
+                className="border-b border-black/10 last:border-0"
+              >
+                {"route" in link && link.route ? (
+                  <Link
+                    href={link.href}
+                    onClick={close}
+                    className="flex min-h-12 items-center text-sm font-medium tracking-wide text-black"
+                    aria-current={pathname === link.href ? "page" : undefined}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    onClick={close}
+                    className="flex min-h-12 items-center text-sm font-medium tracking-wide text-black"
+                  >
+                    {link.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>

@@ -46,6 +46,9 @@ export default function SiteFooter() {
         </div>
 
         <div className="flex shrink-0 flex-col gap-3 text-sm text-white/55 md:items-end md:text-right">
+          <Link href="/ilham" className="transition-colors hover:text-white">
+            İlham
+          </Link>
           <Link href="/kvkk" className="transition-colors hover:text-white">
             KVKK
           </Link>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from "react";
 import IntakeProcessModal, {
   type IntakeAnswers,
 } from "@/components/IntakeProcessModal";
@@ -91,6 +91,16 @@ export default function HeroIntake() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [feedback, setFeedback] = useState("");
   const [attempts, setAttempts] = useState(0);
+  const [gridCursor, setGridCursor] = useState<{
+    x: number;
+    y: number;
+    edge: number;
+  } | null>(null);
+  const hoverRaf = useRef(0);
+  const targetPos = useRef<{ x: number; y: number } | null>(null);
+  const currentPos = useRef<{ x: number; y: number } | null>(null);
+  const following = useRef(false);
+  const heroSize = useRef({ w: 1, h: 1 });
 
   useEffect(() => {
     const used = readAttempts();
@@ -106,6 +116,92 @@ export default function HeroIntake() {
       );
     }
   }, []);
+
+  useEffect(() => {
+    return () => {
+      following.current = false;
+      cancelAnimationFrame(hoverRaf.current);
+    };
+  }, []);
+
+  /** 0 near page center → soft; 1 near edges → bold */
+  function edgeStrength(x: number, y: number) {
+    const { w, h } = heroSize.current;
+    const nx = (x - w / 2) / (w / 2 || 1);
+    const ny = (y - h / 2) / (h / 2 || 1);
+    const d = Math.min(1, Math.hypot(nx, ny));
+    // Noticeable in the middle, still clearly stronger toward the edges
+    const t = Math.max(0, (d - 0.25) / 0.75);
+    const curved = t * t;
+    return 0.28 + curved * 0.72;
+  }
+
+  function tickFollow() {
+    const target = targetPos.current;
+    if (!target) {
+      following.current = false;
+      // Keep last spotlight frozen when pointer leaves the hero
+      return;
+    }
+
+    const cur = currentPos.current ?? target;
+    const ease = 0.14;
+    const x = cur.x + (target.x - cur.x) * ease;
+    const y = cur.y + (target.y - cur.y) * ease;
+    const dx = target.x - x;
+    const dy = target.y - y;
+    const settled = dx * dx + dy * dy < 0.25;
+
+    currentPos.current = settled ? { x: target.x, y: target.y } : { x, y };
+    const pos = currentPos.current;
+    setGridCursor({
+      x: pos.x,
+      y: pos.y,
+      edge: edgeStrength(pos.x, pos.y),
+    });
+
+    hoverRaf.current = requestAnimationFrame(tickFollow);
+  }
+
+  function startFollow() {
+    if (following.current) return;
+    following.current = true;
+    cancelAnimationFrame(hoverRaf.current);
+    hoverRaf.current = requestAnimationFrame(tickFollow);
+  }
+
+  function handleHeroMouseMove(e: MouseEvent<HTMLElement>) {
+    if (typeof window !== "undefined" && window.matchMedia("(hover: none)").matches) {
+      return;
+    }
+    const rect = e.currentTarget.getBoundingClientRect();
+    heroSize.current = { w: rect.width, h: rect.height };
+    targetPos.current = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
+    if (!currentPos.current) {
+      currentPos.current = {
+        x: targetPos.current.x - 18,
+        y: targetPos.current.y - 12,
+      };
+    }
+    startFollow();
+  }
+
+  function handleHeroMouseLeave() {
+    following.current = false;
+    cancelAnimationFrame(hoverRaf.current);
+    const pos = currentPos.current ?? targetPos.current;
+    targetPos.current = null;
+    if (!pos) return;
+    currentPos.current = pos;
+    setGridCursor({
+      x: pos.x,
+      y: pos.y,
+      edge: edgeStrength(pos.x, pos.y),
+    });
+  }
 
   function applySolution(id: string, prompt: string) {
     if (
@@ -258,11 +354,26 @@ export default function HeroIntake() {
   return (
     <section
       id="ust"
-      className="hero-intake relative flex min-h-[calc(100svh-3.5rem)] flex-col justify-center border-b border-black"
+      className="hero-intake relative flex min-h-[calc(100svh-3.5rem)] flex-col justify-center overflow-hidden border-b border-black"
+      onMouseMove={handleHeroMouseMove}
+      onMouseLeave={handleHeroMouseLeave}
     >
-      <div className="pointer-events-none absolute inset-0 hero-intake__wash" />
-      <div className="pointer-events-none absolute inset-0 hero-intake__grid" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-ice" />
+      <div className="pointer-events-none absolute inset-0 z-0 hero-intake__wash" />
+      <div className="pointer-events-none absolute inset-0 z-0 hero-intake__grid" />
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] hero-intake__grid-bold"
+        style={
+          gridCursor
+            ? ({
+                "--hero-mx": `${gridCursor.x}px`,
+                "--hero-my": `${gridCursor.y}px`,
+                opacity: gridCursor.edge,
+              } as CSSProperties)
+            : { opacity: 0 }
+        }
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-1 bg-ice" />
 
       <IntakeProcessModal
         open={phase === "process"}
@@ -271,13 +382,25 @@ export default function HeroIntake() {
         onSuccess={handleProcessSuccess}
       />
 
-      <div className="relative mx-auto w-full min-w-0 max-w-3xl px-4 py-12 sm:px-6 sm:py-20">
-        <div className="ekiz-reveal ekiz-reveal--in mb-6 flex justify-center overflow-hidden sm:mb-8">
+      <div className="relative z-10 mx-auto w-full min-w-0 max-w-3xl px-4 py-12 sm:px-6 sm:py-20">
+        <div className="ekiz-reveal ekiz-reveal--in mb-6 flex justify-center sm:mb-8">
           <span className="sm:hidden">
-            <Logo variant="full" tone="onLight" size={64} layout="stacked" />
+            <Logo
+              variant="full"
+              tone="onLight"
+              size={64}
+              layout="stacked"
+              assembleOnClick
+            />
           </span>
           <span className="hidden sm:inline">
-            <Logo variant="full" tone="onLight" size={96} layout="stacked" />
+            <Logo
+              variant="full"
+              tone="onLight"
+              size={96}
+              layout="stacked"
+              assembleOnClick
+            />
           </span>
         </div>
 
