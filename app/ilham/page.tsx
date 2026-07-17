@@ -1,24 +1,30 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import Link from "next/link";
-import IlhamGallery from "@/components/ilham/IlhamGallery";
+import IlhamChooser from "@/components/ilham/IlhamChooser";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "İlham",
   description:
-    "Beğendiğimiz siteler — ortak bir görsel dil kurmak ve yön seçmek için ilham kaynağı.",
+    "Beş kısa soruyla sitenizin yönünü bulun — sade, cesur, editoryal veya ürün odaklı. Sonuçla WhatsApp’tan konuşun.",
   alternates: { canonical: "/ilham" },
 };
 
-function GalleryFallback() {
-  return (
-    <div className="border border-black bg-white px-5 py-10 text-sm text-black/50 sm:px-6">
-      Yükleniyor…
-    </div>
-  );
-}
+const ORIENTATION = [
+  {
+    title: "Yanlış cevap yok",
+    body: "Seçimler zevkinizi ve önceliğinizi gösterir; tek doğru yol yok.",
+  },
+  {
+    title: "Her seçim tasarımı etkiler",
+    body: "Boşluk, tipografi, renk ve çağrı — hepsi bu tercihlerden çıkar.",
+  },
+  {
+    title: "Sonuç bir başlangıç",
+    body: "Şablon değil; ilk konuşmada ortak dil kurmak için yön özeti.",
+  },
+] as const;
 
 export default function IlhamPage() {
   return (
@@ -28,40 +34,63 @@ export default function IlhamPage() {
         <section className="border-b border-black bg-white">
           <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
             <p className="mb-3 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
-              Referans
-            </p>
-            <h1 className="text-3xl font-medium tracking-tight text-black sm:text-5xl">
               İlham
+            </p>
+            <h1 className="max-w-3xl text-3xl font-medium tracking-tight text-black sm:text-5xl">
+              Sitenizin yönünü birlikte bulalım
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-black/70 sm:text-lg">
-              Gözümüzü şekillendiren siteler. Toplantıda birlikte bakıp “böyle
-              bir dil” demek için — şablon değil, ortak dil.
-            </p>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-black/50">
-              Yaptığımız işler burada değil; onlar için ana sayfadaki İşler
-              bölümüne bakın.
+              Beş kısa soru. Bir dakikadan az. Sonunda size uyan yönü sade
+              dilde görür, isterseniz WhatsApp’tan konuşmaya geçersiniz.
             </p>
           </div>
         </section>
 
-        <section className="border-b border-black bg-ice/20">
+        <section className="border-b border-black bg-ice/25">
+          <div className="mx-auto grid w-full max-w-6xl gap-0 border-x border-black sm:grid-cols-3">
+            {ORIENTATION.map((item, i) => (
+              <div
+                key={item.title}
+                className={[
+                  "bg-white px-5 py-6 sm:px-6",
+                  i > 0 ? "border-t border-black sm:border-t-0 sm:border-l" : "",
+                ].join(" ")}
+              >
+                <p className="text-xs font-medium tracking-[0.16em] uppercase text-black/45">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h2 className="mt-2 text-base font-medium tracking-tight text-black">
+                  {item.title}
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-black/60">
+                  {item.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-b border-black bg-ice/15">
           <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-            <Suspense fallback={<GalleryFallback />}>
-              <IlhamGallery />
-            </Suspense>
+            <IlhamChooser />
           </div>
         </section>
 
         <section className="border-b border-black bg-white">
-          <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-14">
-            <p className="max-w-md text-sm leading-relaxed text-black/65">
-              Yön netleşince birlikte ilerleriz.
+          <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-14">
+            <h2 className="text-xl font-medium tracking-tight text-black sm:text-2xl">
+              Bu sonuç ne işe yarar?
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-black/70 sm:text-base">
+              İlk görüşmede “beğeniyorum ama tarif edemiyorum” yerine ortak bir
+              yön olur. Siz ne istediğinizi netleştirirsiniz; biz de teklifi o
+              dile göre kurarız. Değişebilir — bu bir sabit şablon değil.
             </p>
             <Link
               href="/#iletisim"
-              className="inline-flex shrink-0 border border-black bg-black px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white hover:text-black"
+              className="mt-6 inline-flex border border-black px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-black hover:text-white"
             >
-              İletişime geç
+              İletişim formuna git
             </Link>
           </div>
         </section>

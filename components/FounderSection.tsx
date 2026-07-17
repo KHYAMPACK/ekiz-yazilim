@@ -49,23 +49,23 @@ export default function FounderSection() {
           <div className="mt-8 space-y-4 text-base leading-relaxed text-black/75 sm:text-lg">
             <p>
               Bilkent Üniversitesi CTIS (Bilgisayar Teknolojisi ve Bilişim
-              Sistemleri) mezunuyum. Trendyol ve Insider’da staj yaptım; Halit
+              Sistemleri) öğrencisiyim. Trendyol ve Insider’da staj yaptım; Halit
               Alptekin, Selçuk Saraç ve Erkan Uçar ile çalışma fırsatı buldum.
-              Bu süreçte öğrendiğim disiplin ve ürün bakışını, şimdi Denizli’deki
-              işletmelerin yanında kullanıyorum.
+              Bu süreçte öğrendiğim disiplin ve yaklaşımı, şimdi Denizli’deki
+              işletmeler için kullanıyorum.
             </p>
             <p>
-              Hem küçük hem büyük işletmelerle çalışıyorum: ilk web sitesinden
-              büyüyen bir markanın dijital omurgasına kadar. Anlaşılır, sade ve
-              sürdürülebilir çözümler kuruyorum.
+              Hem küçük hem büyük işletmelerle çalışıyorum. İlk web sitesinden
+              büyüyen bir markanın dijital ortaklığına kadar anlaşılır ve
+              sürdürülebilir çözümler sunuyorum.
             </p>
             <p>
-              Yazılımı, günlük işinizi kolaylaştırsın diye tasarlıyorum.
-              Denizli’de işini büyüten insanlarla yan yana ilerlemek istiyorum —
-              dijital tarafı birlikte netleştiririz.
+            Yazılımı, günlük işinizi kolaylaştırmak, büyümenizi hızlandırmak ve markanızı güçlendirmek için tasarlıyorum.
+              Denizli’de başladığımız bu yolculukta sizin yanınızda olmak istiyorum.<br/>
+              Dijital tarafı birlikte netleştirelim.
             </p>
             <p className="border-l-2 border-ice pl-4 text-black">
-              Güven, net iş ve yanınızda duran bir muhatapla gelir. İşim bu.
+              Güven, işin kalitesi ve yanınızda duran bir muhatapla gelir.
             </p>
           </div>
 
@@ -75,7 +75,7 @@ export default function FounderSection() {
                 Odak
               </dt>
               <dd className="mt-2 text-base text-black">
-                Denizli’deki küçük ve büyük işletmeler
+                Denizli’deki küçük, orta ve büyük işletmeler
               </dd>
             </div>
             <div>
@@ -83,7 +83,7 @@ export default function FounderSection() {
                 Yaklaşım
               </dt>
               <dd className="mt-2 text-base text-black">
-                Uçtan uca, tek muhatap
+                Baştan sona destek ve tek muhatap
               </dd>
             </div>
             <div>
@@ -91,7 +91,7 @@ export default function FounderSection() {
                 İlke
               </dt>
               <dd className="mt-2 text-base text-black">
-                Süslü değil, işe yarar
+                Anlaşılır, sürdürülebilir ve işe yarar hizmetler
               </dd>
             </div>
           </dl>

@@ -2,18 +2,18 @@ export default function ProcessSection() {
   const steps = [
     {
       n: "01",
-      title: "Konuşuruz",
-      body: "İhtiyacınızı bir cümlede veya kısa bir görüşmeyle netleştiririz.",
+      title: "1. Aşama: Keşif",
+      body: "İhtiyacınızı ve hedeflerinizi bir görüşmeyle netleştiririz.",
     },
     {
       n: "02",
-      title: "Teklif",
-      body: "Kapsam, süre ve fiyatı açık yazarız. Sürpriz madde olmaz.",
+      title: "2. Aşama: Teklif",
+      body: "Kapsam, süre ve fiyatı belirleriz.",
     },
     {
       n: "03",
-      title: "Yapıp yayınlarız",
-      body: "Tasarım, geliştirme, yayına alma ve sonrası destek — tek muhatap.",
+      title: "3. Aşama: Geliştirme ve Yayın",
+      body: "Tasarım, geliştirme, yayına alma ve sonrası için destek.",
     },
   ] as const;
 
@@ -35,7 +35,7 @@ export default function ProcessSection() {
             Nasıl çalışırız?
           </h2>
           <p className="mt-3 text-base text-white/65">
-            Üç adım. Uzun sunum yok — net ilerleme var.
+            
           </p>
         </div>
 

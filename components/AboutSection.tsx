@@ -114,17 +114,17 @@ function DemoSoftware() {
 const services = [
   {
     title: "Web sitesi / landing",
-    body: "Ne sattığınızı veya ne yaptığınızı net anlatan sade sayfalar.",
+    body: "Ne sattığınızı veya ne yaptığınızı net anlatan sayfalar.",
     Demo: DemoLanding,
   },
   {
     title: "E-ticaret",
-    body: "Ürün satışı ve kendi markanızla online vitrin — butikten atölyeye.",
+    body: "Ürün satışı ve kendi markanızla online vitrin.",
     Demo: DemoEcommerce,
   },
   {
     title: "Özel çözüm",
-    body: "İşinize göre uyarlanmış yazılım. Karmaşık paketler değil, gereken kadar.",
+    body: "İşinize ve hedeflerinize göre uyarlanmış yazılımlar.",
     Demo: DemoSoftware,
   },
 ] as const;
@@ -146,23 +146,20 @@ export default function AboutSection() {
               id="hakkimizda-title"
               className="text-3xl font-medium tracking-tight text-black sm:text-4xl"
             >
-              Denizli’deki küçük ve büyük işletmeler için dijitalleşme.
+              Denizli’deki küçük, orta ve büyük işletmeler için dijitalleşme zamanı...
             </h2>
           </div>
           <div className="space-y-4 text-base leading-relaxed text-black/80 sm:text-lg">
             <p>
-              Abartılı ve karmaşık paketlerin peşinde değiliz. Ekiz Yazılım
-              olarak odak noktamız net: Denizli’de dijitalleşmeye yeni başlayan
-              veya markasını online büyütmek isteyen küçük ve büyük işletmeler.
+              Ekiz Yazılım olarak odak noktamız; Denizli’de dijitalleşmeye yeni başlayan
+              veya markasını online büyütmek isteyen küçük, orta ve büyük işletmeler.
             </p>
             <p>
-              Butik gibi ürün satan işletmeler için e-ticaret, vitrin veya
-              tanıtım için sade web siteleri, ihtiyaca özel yazılım çözümleri —
-              hepsini sizin yerinize uçtan uca ele alıyoruz. Süslü değil, işe
-              yarayan işler.
+              Ürün satan işletmeler için e-ticaret, vitrin veya
+              tanıtım için web siteleri, ihtiyaca özel yazılım çözümleri ve daha fazlasını sizin yerinize baştan sona ele alıyoruz.
             </p>
             <p className="border-l-2 border-ice bg-ice/25 py-2 pl-4 text-black">
-              Siz işinize bakın. Dijital tarafı biz hallederiz.
+              Siz işinize bakın. Dijital tarafını biz hallederiz.
             </p>
           </div>
         </div>
@@ -183,8 +180,9 @@ export default function AboutSection() {
               Nasıl?
             </p>
             <p className="p-6 text-base leading-relaxed text-black/80">
-              Keşiften yayına kadar: ihtiyaç, tasarım, geliştirme, yayına alma
-              ve sonrası. Tek muhatap, net süreç.
+              Keşiften yayına kadar olan süreçte ihtiyaç, tasarım, geliştirme, yayına alma
+              ve sonrası için hizmet veriyoruz.
+               Tek muhatap, net süreç.
             </p>
           </div>
           <div>
