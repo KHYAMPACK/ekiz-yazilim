@@ -1,4 +1,5 @@
 import { fmxAudit } from "@/lib/gorunurluk/clients/fmx";
+import { sahikaOncuMiniklerAudit } from "@/lib/gorunurluk/clients/sahika-oncu-minikler";
 import { templateAudit } from "@/lib/gorunurluk/clients/sablon";
 import type { ClientAudit } from "@/lib/gorunurluk/types";
 
@@ -8,6 +9,7 @@ import type { ClientAudit } from "@/lib/gorunurluk/types";
  */
 export const clients: Record<string, ClientAudit> = {
   fmx: fmxAudit,
+  "sahika-oncu-minikler": sahikaOncuMiniklerAudit,
   sablon: templateAudit,
 };
 

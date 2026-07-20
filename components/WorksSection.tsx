@@ -56,7 +56,7 @@ export default function WorksSection() {
             </div>
 
             {/* Device stage — laptop + overlapping iPhone 13 */}
-            <div className="relative overflow-hidden bg-[linear-gradient(165deg,#eef3f8_0%,#e2eaf3_55%,#d7e2ee_100%)] px-4 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+            <div className="relative overflow-hidden bg-white px-4 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
               <div className="relative mx-auto max-w-[34rem] pb-8 max-sm:pb-0 sm:pb-10">
                 {/* Laptop */}
                 <div className="relative z-0 mx-auto w-[92%] sm:w-[88%]">

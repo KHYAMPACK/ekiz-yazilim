@@ -10,6 +10,7 @@ const links = [
   { href: "/#surec", label: "Süreç" },
   { href: "/#isler", label: "İşler" },
   { href: "/ilham", label: "İlham", route: true },
+  { href: "/gorunurluk", label: "Görünürlük", route: true },
   { href: "/#kurucu", label: "Kurucu" },
   { href: "/#sss", label: "SSS" },
   { href: "/#iletisim", label: "İletişim" },
@@ -19,7 +20,7 @@ export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const onHome = pathname === "/";
-  const onGorunurluk = pathname === "/gorunurluk";
+  const onEticaret = pathname === "/denizli-e-ticaret";
 
   function close() {
     setOpen(false);
@@ -43,10 +44,7 @@ export default function SiteHeader() {
                 {"route" in link && link.route ? (
                   <Link
                     href={link.href}
-                    className={[
-                      "text-sm font-medium tracking-wide transition-colors hover:text-black/60",
-                      pathname === link.href ? "text-black" : "text-black",
-                    ].join(" ")}
+                    className="text-sm font-medium tracking-wide text-black transition-colors hover:text-black/60"
                     aria-current={pathname === link.href ? "page" : undefined}
                   >
                     {link.label}
@@ -63,17 +61,17 @@ export default function SiteHeader() {
             ))}
           </ul>
           <Link
-            href="/gorunurluk"
+            href="/denizli-e-ticaret"
             onClick={close}
             className={[
               "shrink-0 border px-3.5 py-1.5 text-sm font-medium tracking-wide transition-colors",
-              onGorunurluk
+              onEticaret
                 ? "border-black bg-black text-white"
                 : "border-black bg-ice text-black hover:bg-black hover:text-white",
             ].join(" ")}
-            aria-current={onGorunurluk ? "page" : undefined}
+            aria-current={onEticaret ? "page" : undefined}
           >
-            Görünürlük
+            E-ticaret
           </Link>
         </nav>
 
@@ -109,17 +107,17 @@ export default function SiteHeader() {
           <ul className="mx-auto w-full max-w-6xl px-4 sm:px-6">
             <li className="border-b border-black/10 py-3">
               <Link
-                href="/gorunurluk"
+                href="/denizli-e-ticaret"
                 onClick={close}
                 className={[
                   "flex min-h-11 items-center justify-center border text-sm font-medium tracking-wide",
-                  onGorunurluk
+                  onEticaret
                     ? "border-black bg-black text-white"
                     : "border-black bg-ice text-black",
                 ].join(" ")}
-                aria-current={onGorunurluk ? "page" : undefined}
+                aria-current={onEticaret ? "page" : undefined}
               >
-                Görünürlük Analizi
+                Denizli E-ticaret
               </Link>
             </li>
             {links.map((link) => (

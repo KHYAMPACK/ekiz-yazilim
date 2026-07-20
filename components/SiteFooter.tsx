@@ -47,8 +47,14 @@ export default function SiteFooter() {
 
         <div className="flex shrink-0 flex-col gap-3 text-sm text-white/55 md:items-end md:text-right">
           <Link
-            href="/gorunurluk"
+            href="/denizli-e-ticaret"
             className="inline-flex border border-ice/40 bg-ice/15 px-3 py-1.5 text-ice transition-colors hover:bg-ice hover:text-black"
+          >
+            Denizli e-ticaret
+          </Link>
+          <Link
+            href="/gorunurluk"
+            className="transition-colors hover:text-white"
           >
             Görünürlük analizi
           </Link>

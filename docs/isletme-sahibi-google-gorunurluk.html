@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Google’da Daha İyi Görünmek — Ekiz Yazılım</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #000000;
+        --white: #ffffff;
+        --ice: #bfd5eb;
+        --muted: rgba(0, 0, 0, 0.55);
+        --soft: rgba(0, 0, 0, 0.72);
+      }
+
+      * {
+        box-sizing: border-box;
+        border-radius: 0;
+      }
+
+      @page {
+        size: A4;
+        margin: 14mm 16mm;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--white);
+        color: var(--black);
+        font-family: "Space Grotesk", system-ui, sans-serif;
+        font-size: 11pt;
+        line-height: 1.55;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        max-width: 180mm;
+        margin: 0 auto;
+      }
+
+      .masthead {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        border-bottom: 1.5px solid var(--black);
+        padding-bottom: 14px;
+        margin-bottom: 22px;
+      }
+
+      .brand {
+        font-size: 13pt;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-meta {
+        margin-top: 4px;
+        font-size: 8pt;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .date-chip {
+        border: 1px solid var(--black);
+        background: rgba(191, 213, 235, 0.45);
+        padding: 6px 10px;
+        font-size: 8pt;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: 22pt;
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+      }
+
+      .lede {
+        margin: 0 0 22px;
+        max-width: 42em;
+        color: var(--soft);
+        font-size: 11pt;
+      }
+
+      .callout {
+        border: 1.5px solid var(--black);
+        border-left: 4px solid var(--ice);
+        background: rgba(191, 213, 235, 0.22);
+        padding: 12px 14px;
+        margin: 0 0 26px;
+        color: var(--black);
+        font-size: 10pt;
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        font-size: 9pt;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .habit {
+        border: 1px solid var(--black);
+        margin: 0 0 10px;
+        break-inside: avoid;
+      }
+
+      .habit-head {
+        display: flex;
+        gap: 12px;
+        align-items: baseline;
+        border-bottom: 1px solid var(--black);
+        background: rgba(191, 213, 235, 0.35);
+        padding: 8px 12px;
+      }
+
+      .habit-num {
+        font-size: 9pt;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        min-width: 1.6em;
+      }
+
+      .habit-title {
+        font-size: 11.5pt;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+      }
+
+      .habit-body {
+        padding: 10px 12px 12px;
+      }
+
+      .habit-body p {
+        margin: 0 0 8px;
+        color: var(--soft);
+        font-size: 10pt;
+      }
+
+      .habit-body p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0 0 0 1.1em;
+      }
+
+      li {
+        margin: 0 0 4px;
+        color: var(--black);
+        font-size: 10pt;
+      }
+
+      li:last-child {
+        margin-bottom: 0;
+      }
+
+      .avoid {
+        border: 1.5px solid var(--black);
+        margin: 22px 0;
+        break-inside: avoid;
+      }
+
+      .avoid-head {
+        background: var(--black);
+        color: var(--white);
+        padding: 10px 12px;
+        font-size: 9pt;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .avoid ul {
+        padding: 12px 12px 12px 1.4em;
+      }
+
+      .avoid li {
+        margin-bottom: 6px;
+      }
+
+      .summary {
+        border: 1.5px solid var(--black);
+        break-inside: avoid;
+      }
+
+      .summary-head {
+        border-bottom: 1px solid var(--black);
+        background: rgba(191, 213, 235, 0.45);
+        padding: 10px 12px;
+        font-size: 9pt;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .summary ol {
+        margin: 0;
+        padding: 12px 12px 12px 1.5em;
+      }
+
+      .summary li {
+        margin-bottom: 6px;
+        font-size: 10.5pt;
+        font-weight: 500;
+      }
+
+      .closing {
+        margin: 16px 0 0;
+        color: var(--soft);
+        font-size: 10pt;
+      }
+
+      .footer {
+        margin-top: 28px;
+        padding-top: 12px;
+        border-top: 1.5px solid var(--black);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 8.5pt;
+        color: var(--muted);
+      }
+
+      .footer strong {
+        color: var(--black);
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <div>
+          <div class="brand">Ekiz Yazılım</div>
+          <div class="brand-meta">Görünürlük rehberi</div>
+        </div>
+        <div class="date-chip">Temmuz 2026</div>
+      </header>
+
+      <h1>Google’da Daha İyi Görünmek İçin Yapmanız Gerekenler</h1>
+      <p class="lede">
+        Bu not, işletmenizin Google’da ve haritada daha kolay bulunması için
+        düzenli yapabileceğiniz işleri özetler. Teknik kurulum tarafını biz
+        takip ederiz; sizin tarafınız doğru bilgi, güncel profil ve net
+        anlatımdır.
+      </p>
+
+      <div class="callout">
+        Kısa hatırlatma: Mucize vaat değil, tutarlı alışkanlık. Profil, iletişim
+        bilgisi ve site mesajınız her hafta aynı netlikte kalsın.
+      </div>
+
+      <h2>Her hafta / her ay</h2>
+
+      <article class="habit">
+        <div class="habit-head">
+          <span class="habit-num">01</span>
+          <span class="habit-title">Google İşletme Profilinizi canlı tutun</span>
+        </div>
+        <div class="habit-body">
+          <p>
+            Haritada çıkan işletme kartınız çoğu müşterinin sizi ilk gördüğü
+            yerdir.
+          </p>
+          <ul>
+            <li>Çalışma saatlerinizi doğru tutun; tatil ve bayram günlerini güncelleyin</li>
+            <li>Gerçek fotoğraf ekleyin (vitrin, ekip, iş, ürün)</li>
+            <li>Gelen yorumlara kısa ve kibar yanıt yazın</li>
+            <li>Yeni hizmet veya kampanya varsa profile de yazın</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="habit">
+        <div class="habit-head">
+          <span class="habit-num">02</span>
+          <span class="habit-title">İsim, adres ve telefon her yerde aynı olsun</span>
+        </div>
+        <div class="habit-body">
+          <p>
+            Kartvizit, website, Instagram, Google ve WhatsApp’taki işletme adı,
+            adres ve telefon aynı şekilde yazılsın.
+          </p>
+          <ul>
+            <li>Bir yazım biçimi seçin ve her yerde onu kullanın</li>
+            <li>Telefonu hep aynı formatta yazın</li>
+            <li>Adres veya numara değiştiyse siteyi, Google’ı ve sosyal medyayı aynı gün güncelleyin</li>
+          </ul>
+          <p>
+            Aynı bilgi her yerde görünürse hem müşteri hem Google sizi daha
+            kolay tanır.
+          </p>
+        </div>
+      </article>
+
+      <article class="habit">
+        <div class="habit-head">
+          <span class="habit-num">03</span>
+          <span class="habit-title">Sitenizde ne yaptığınız net olsun</span>
+        </div>
+        <div class="habit-body">
+          <p>
+            Ziyaretçi birkaç saniyede şunu anlamalı: bu işletme benim ihtiyacıma
+            uyuyor mu, nasıl ulaşırım?
+          </p>
+          <ul>
+            <li>Ana sayfada tek cümlelik teklifiniz net olsun</li>
+            <li>Telefon, WhatsApp veya form kolay görünsün</li>
+            <li>En çok sattığınız hizmetler ayrı ayrı, anlaşılır anlatılsın</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="habit">
+        <div class="habit-head">
+          <span class="habit-num">04</span>
+          <span class="habit-title">Müşterinin konuştuğu dilde yazın</span>
+        </div>
+        <div class="habit-body">
+          <p>
+            Müşteri Google’da sizin kurumsal sloganınızı değil, kendi ihtiyacını
+            yazar.
+          </p>
+          <ul>
+            <li>Size sık sorulan cümleleri not edin</li>
+            <li>Site metinlerinde o dili kullanın</li>
+            <li>Abartılı rakam veya vaat yazmayın; yanlışsa güven kaybedersiniz</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="habit">
+        <div class="habit-head">
+          <span class="habit-num">05</span>
+          <span class="habit-title">Yorum toplayın ve yönetin</span>
+        </div>
+        <div class="habit-body">
+          <p>Yorumlar hem güven hem görünürlük için önemlidir.</p>
+          <ul>
+            <li>Memnun müşteriden Google yorumu isteyin</li>
+            <li>Olumsuz yoruma da sakin ve kibar cevap verin</li>
+            <li>Sahte yorum satın almayın</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="habit">
+        <div class="habit-head">
+          <span class="habit-num">06</span>
+          <span class="habit-title">Eski bilgileri güncelleyin</span>
+        </div>
+        <div class="habit-body">
+          <p>
+            Fiyat, hizmet listesi, adres veya saat değiştiyse siteyi de
+            güncelleyin. Eski bilgi hem müşteriyi hem aramayı bozar.
+          </p>
+        </div>
+      </article>
+
+      <article class="habit">
+        <div class="habit-head">
+          <span class="habit-num">07</span>
+          <span class="habit-title">Ayda bir 15 dakikalık kontrol</span>
+        </div>
+        <div class="habit-body">
+          <ul>
+            <li>Google’da kendi işletme adınızı arayın: doğru bilgi çıkıyor mu?</li>
+            <li>Telefon ve WhatsApp çalışıyor mu?</li>
+            <li>Sitede tıklayınca hata veren bir yer var mı?</li>
+            <li>Bu ay kaç yorum geldi, kaçını yanıtladınız?</li>
+          </ul>
+        </div>
+      </article>
+
+      <section class="avoid">
+        <div class="avoid-head">Uzak durun</div>
+        <ul>
+          <li>“Garantili birinci sıraya çıkarız” vaatleri</li>
+          <li>Her mahalle veya şehir için boş, kopya sayfalar</li>
+          <li>Anlamsız, kopyala-yapıştır uzun yazılar</li>
+          <li>Her platformda farklı isim, adres veya telefon bırakmak</li>
+          <li>Stok fotoğraf ve abartılı istatistik</li>
+          <li>Sadece reklam verip siteyi düzeltmemek</li>
+          <li>Sahte yorum almak</li>
+        </ul>
+      </section>
+
+      <section class="summary">
+        <div class="summary-head">Kısa özet</div>
+        <ol>
+          <li>Google İşletme Profiliniz dolu ve güncel olsun</li>
+          <li>İsim, adres ve telefon her yerde aynı olsun</li>
+          <li>Sitede ne yaptığınız ve nasıl ulaşılacağı net olsun</li>
+          <li>Gerçek yorum toplayın, yanıtlayın</li>
+          <li>Eski veya yanlış bilgiyi bırakmayın</li>
+          <li>Mucize vaatlere kanmayın</li>
+        </ol>
+      </section>
+
+      <p class="closing">
+        Teknik kurulum ve ölçüm tarafını biz takip ederiz. Sizin tutarlılığınız:
+        doğru bilgi, yorumlar, net mesaj ve güncel profil.
+      </p>
+
+      <footer class="footer">
+        <div>
+          <strong>Ekiz Yazılım</strong> · Denizli<br />
+          ekizmert3@gmail.com
+        </div>
+        <div style="text-align: right">
+          ekizyazilim.com<br />
+          Temmuz 2026
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

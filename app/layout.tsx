@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
+import FloatingAssistant from "@/components/FloatingAssistant";
 import JsonLd from "@/components/JsonLd";
 import LogoLoader from "@/components/LogoLoader";
 import { site } from "@/lib/site";
@@ -63,6 +64,7 @@ export default function RootLayout({
       <body className="min-w-0 min-h-full max-w-[100%] overflow-x-clip bg-background font-sans text-foreground">
         <JsonLd />
         <LogoLoader>{children}</LogoLoader>
+        <FloatingAssistant />
       </body>
     </html>
   );

@@ -30,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${seo.siteUrl}/denizli-e-ticaret`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.95,
+    },
+    {
       url: `${seo.siteUrl}/gorunurluk`,
       lastModified,
       changeFrequency: "weekly",

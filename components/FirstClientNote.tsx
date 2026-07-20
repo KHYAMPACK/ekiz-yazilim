@@ -1,7 +1,7 @@
 export default function FirstClientNote() {
   return (
     <section
-      className="border-b border-black bg-ice"
+      className="border-b border-black bg-ice/30"
       aria-label="İşler notu"
     >
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-10 sm:flex-row sm:items-baseline sm:justify-between sm:gap-10 sm:px-6 sm:py-12">

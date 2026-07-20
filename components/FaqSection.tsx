@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "E-Ticarete Sıfırdan Mı Başlıyorsunuz?",
-    a: "Evet. Denizli’de ürün satan işletmeler için e-ticaret başlangıcını sade tutuyoruz: ürün vitrini, sipariş/ödeme düzeni ve ilk yayına net bir yol.",
+    a: "Evet. Denizli’de ürün satan işletmeler için online mağaza kuruyoruz: ürün vitrini, sipariş ve ödeme düzeni, ilk yayına net bir yol. Butik ve giyim için ayrı bir sayfamız da var.",
   },
   {
     q: "Hosting Ve Alan Adı Sizde Mi?",
@@ -33,7 +33,7 @@ export default function FaqSection() {
   return (
     <section
       id="sss"
-      className="border-b border-black bg-ice/35"
+      className="border-b border-black bg-ice/30"
       aria-labelledby="sss-title"
     >
       <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">

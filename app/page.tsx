@@ -1,8 +1,8 @@
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
+import EcommerceSection from "@/components/EcommerceSection";
 import FaqSection from "@/components/FaqSection";
 import FirstClientNote from "@/components/FirstClientNote";
-import FloatingContact from "@/components/FloatingContact";
 import FounderSection from "@/components/FounderSection";
 import HeroIntake from "@/components/HeroIntake";
 import ProcessSection from "@/components/ProcessSection";
@@ -20,6 +20,9 @@ export default function Home() {
         <HeroIntake />
         <Reveal>
           <AboutSection />
+        </Reveal>
+        <Reveal delay={40}>
+          <EcommerceSection />
         </Reveal>
         <Reveal delay={40}>
           <VisibilitySection />
@@ -46,7 +49,6 @@ export default function Home() {
       <Reveal>
         <SiteFooter />
       </Reveal>
-      <FloatingContact />
     </>
   );
 }

@@ -32,7 +32,7 @@ const faqItems = [
   },
   {
     q: "E-ticarete sıfırdan mı başlıyorsunuz?",
-    a: "Evet. Denizli’de ürün satan işletmeler için e-ticaret başlangıcını sade tutuyoruz: ürün vitrini, sipariş/ödeme düzeni ve ilk yayına net bir yol.",
+    a: "Evet. Denizli’de ürün satan işletmeler için online mağaza kuruyoruz: ürün vitrini, sipariş/ödeme düzeni ve ilk yayına net bir yol.",
   },
   {
     q: "Hosting ve alan adı sizde mi?",

@@ -21,6 +21,7 @@ const solutions = [
     id: "ecommerce",
     label: "E-Ticaret Sitesi",
     prompt: "Ürün satışı için bir e-ticaret sitesi istiyorum.",
+    featured: true,
   },
   {
     id: "landing",
@@ -493,13 +494,14 @@ export default function HeroIntake() {
                       type="button"
                       disabled={problemLocked}
                       onClick={() => router.push(s.href)}
-                      className="border border-black bg-ice px-4 py-2 text-sm font-medium text-black transition-colors duration-300 hover:bg-black hover:text-white disabled:opacity-50"
+                      className="border border-black bg-white px-4 py-2 text-sm font-medium text-black transition-colors duration-300 hover:bg-ice/50 disabled:opacity-50"
                     >
                       {s.label}
                     </button>
                   );
                 }
                 const isActive = selected === s.id;
+                const isFeatured = "featured" in s && s.featured;
                 return (
                   <button
                     key={s.id}
@@ -507,8 +509,8 @@ export default function HeroIntake() {
                     disabled={problemLocked}
                     onClick={() => applySolution(s.id, s.prompt)}
                     className={`border px-4 py-2 text-sm font-medium transition-colors duration-300 disabled:opacity-50 ${
-                      isActive
-                        ? "border-black bg-ice text-black"
+                      isActive || isFeatured
+                        ? "border-black bg-ice text-black hover:bg-black hover:text-white"
                         : "border-black bg-white text-black hover:bg-ice/50"
                     }`}
                   >
