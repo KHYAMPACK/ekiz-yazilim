@@ -37,7 +37,7 @@ export default function RandevuPage() {
             Randevu
           </p>
           <h1 className="text-3xl font-medium tracking-tight text-black sm:text-4xl">
-            Keşif görüşmesi
+            Keşif Görüşmesi
           </h1>
           <p className="mt-4 text-base leading-relaxed text-black/70 sm:text-lg">
             15–20 dakikalık bir konuşma. Ne istediğinizi netleştirir, size uygun
@@ -47,7 +47,7 @@ export default function RandevuPage() {
           <div className="mt-10 border border-black bg-white">
             <div className="border-b border-black px-5 py-5 sm:px-6">
               <p className="text-xs font-medium tracking-[0.18em] uppercase text-black/45">
-                Nasıl randevu alınır?
+                Nasıl Randevu Alınır?
               </p>
               <ol className="mt-4 list-decimal space-y-3 pl-5 text-base text-black/80">
                 <li>WhatsApp’tan yazın veya arayın.</li>

@@ -13,15 +13,15 @@ export const metadata: Metadata = {
 
 const ORIENTATION = [
   {
-    title: "Yanlış cevap yok",
+    title: "Yanlış Cevap Yok",
     body: "Seçimler zevkinizi ve önceliğinizi gösterir; tek doğru yol yok.",
   },
   {
-    title: "Her seçim tasarımı etkiler",
+    title: "Her Seçim Tasarımı Etkiler",
     body: "Boşluk, tipografi, renk ve çağrı — hepsi bu tercihlerden çıkar.",
   },
   {
-    title: "Sonuç bir başlangıç",
+    title: "Sonuç Bir Başlangıç",
     body: "Şablon değil; ilk konuşmada ortak dil kurmak için yön özeti.",
   },
 ] as const;
@@ -37,7 +37,7 @@ export default function IlhamPage() {
               İlham
             </p>
             <h1 className="max-w-3xl text-3xl font-medium tracking-tight text-black sm:text-5xl">
-              Sitenizin yönünü birlikte bulalım
+              Sitenizin Yönünü Birlikte Bulalım
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-black/70 sm:text-lg">
               Beş kısa soru. Bir dakikadan az. Sonunda size uyan yönü sade

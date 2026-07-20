@@ -19,6 +19,7 @@ export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const onHome = pathname === "/";
+  const onGorunurluk = pathname === "/gorunurluk";
 
   function close() {
     setOpen(false);
@@ -35,8 +36,8 @@ export default function SiteHeader() {
           <Logo variant="full" tone="onLight" size={24} layout="inline" />
         </Link>
 
-        <nav className="ml-auto hidden md:block" aria-label="Ana menü">
-          <ul className="flex items-center justify-end gap-6 lg:gap-8">
+        <nav className="ml-auto hidden items-center gap-5 lg:gap-7 md:flex" aria-label="Ana menü">
+          <ul className="flex items-center justify-end gap-5 lg:gap-7">
             {links.map((link) => (
               <li key={link.href}>
                 {"route" in link && link.route ? (
@@ -61,6 +62,19 @@ export default function SiteHeader() {
               </li>
             ))}
           </ul>
+          <Link
+            href="/gorunurluk"
+            onClick={close}
+            className={[
+              "shrink-0 border px-3.5 py-1.5 text-sm font-medium tracking-wide transition-colors",
+              onGorunurluk
+                ? "border-black bg-black text-white"
+                : "border-black bg-ice text-black hover:bg-black hover:text-white",
+            ].join(" ")}
+            aria-current={onGorunurluk ? "page" : undefined}
+          >
+            Görünürlük
+          </Link>
         </nav>
 
         <button
@@ -93,6 +107,21 @@ export default function SiteHeader() {
           aria-label="Mobil menü"
         >
           <ul className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+            <li className="border-b border-black/10 py-3">
+              <Link
+                href="/gorunurluk"
+                onClick={close}
+                className={[
+                  "flex min-h-11 items-center justify-center border text-sm font-medium tracking-wide",
+                  onGorunurluk
+                    ? "border-black bg-black text-white"
+                    : "border-black bg-ice text-black",
+                ].join(" ")}
+                aria-current={onGorunurluk ? "page" : undefined}
+              >
+                Görünürlük Analizi
+              </Link>
+            </li>
             {links.map((link) => (
               <li
                 key={link.href}

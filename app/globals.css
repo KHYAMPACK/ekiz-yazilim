@@ -402,3 +402,28 @@ html.logo-loader-active body {
     display: none;
   }
 }
+
+/* —— Görünürlük raporu: yazdır / PDF —— */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  .report-shell {
+    background: white !important;
+    color: #000 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-break {
+    break-before: page;
+  }
+
+  .report-shell a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+}

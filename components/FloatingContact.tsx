@@ -36,7 +36,7 @@ export default function FloatingContact() {
           Hızlı iletişim
         </p>
         <p className="mt-0.5 text-sm font-medium tracking-tight text-black">
-          Sorununuzu birlikte netleştirelim.
+          Sorununuzu Birlikte Netleştirelim.
         </p>
       </div>
       <div

@@ -42,7 +42,7 @@ export default function FounderSection() {
             id="kurucu-title"
             className="text-3xl font-medium tracking-tight text-black sm:text-4xl"
           >
-            Merhaba, ben Mert.
+            Merhaba, Ben Mert.
           </h2>
           <p className="mt-2 text-lg text-black/55">Kurucu, Ekiz Yazılım</p>
 

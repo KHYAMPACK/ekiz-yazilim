@@ -84,7 +84,7 @@ export default function ContactSection() {
             id="iletisim-title"
             className="text-3xl font-medium tracking-tight text-black sm:text-4xl"
           >
-            Birlikte çalışalım
+            Birlikte Çalışalım
           </h2>
           <p className="mt-4 text-base text-black/65">
             Arayın, yazın veya formu doldurun. {site.responseTime}.

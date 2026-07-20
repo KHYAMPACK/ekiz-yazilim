@@ -9,6 +9,7 @@ import ProcessSection from "@/components/ProcessSection";
 import Reveal from "@/components/Reveal";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
+import VisibilitySection from "@/components/VisibilitySection";
 import WorksSection from "@/components/WorksSection";
 
 export default function Home() {
@@ -19,6 +20,9 @@ export default function Home() {
         <HeroIntake />
         <Reveal>
           <AboutSection />
+        </Reveal>
+        <Reveal delay={40}>
+          <VisibilitySection />
         </Reveal>
         <Reveal delay={40}>
           <ProcessSection />

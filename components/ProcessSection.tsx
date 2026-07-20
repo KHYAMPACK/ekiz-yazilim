@@ -3,16 +3,16 @@ export default function ProcessSection() {
     {
       n: "01",
       title: "1. Aşama: Keşif",
-      body: "İhtiyacınızı ve hedeflerinizi bir görüşmeyle netleştiririz.",
+      body: "İhtiyacı netleştiririz — isterseniz görünürlük formu ve kısa görüşmeyle başlarız.",
     },
     {
       n: "02",
       title: "2. Aşama: Teklif",
-      body: "Kapsam, süre ve fiyatı belirleriz.",
+      body: "Kapsam, süre ve fiyatı belirleriz; skorlu rapor varsa öncelikler netleşir.",
     },
     {
       n: "03",
-      title: "3. Aşama: Geliştirme ve Yayın",
+      title: "3. Aşama: Geliştirme Ve Yayın",
       body: "Tasarım, geliştirme, yayına alma ve sonrası için destek.",
     },
   ] as const;
@@ -32,7 +32,7 @@ export default function ProcessSection() {
             id="surec-title"
             className="text-3xl font-medium tracking-tight text-white sm:text-4xl"
           >
-            Nasıl çalışırız?
+            Nasıl Çalışırız?
           </h2>
           <p className="mt-3 text-base text-white/65">
             

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from "react";
 import IntakeProcessModal, {
   type IntakeAnswers,
@@ -13,27 +14,27 @@ const DONE_KEY = "ekiz-intake-done";
 const solutions = [
   {
     id: "website",
-    label: "Web sitesi",
+    label: "Web Sitesi",
     prompt: "Kurumsal veya kişisel bir web sitesi istiyorum.",
   },
   {
     id: "ecommerce",
-    label: "E-ticaret sitesi",
+    label: "E-Ticaret Sitesi",
     prompt: "Ürün satışı için bir e-ticaret sitesi istiyorum.",
   },
   {
     id: "landing",
-    label: "Tanıtım sayfası",
+    label: "Tanıtım Sayfası",
     prompt: "İşletmemi tanıtan sade bir tanıtım / landing sayfası istiyorum.",
   },
   {
-    id: "catalog",
-    label: "Online katalog",
-    prompt: "Ürünlerimi gösteren bir online katalog istiyorum.",
+    id: "visibility",
+    label: "Görünürlük",
+    href: "/gorunurluk",
   },
   {
     id: "custom",
-    label: "Özel yazılım",
+    label: "Özel Yazılım",
     prompt: "İşime özel sade bir yazılım çözümü istiyorum.",
   },
 ] as const;
@@ -85,6 +86,7 @@ function sleep(ms: number) {
 }
 
 export default function HeroIntake() {
+  const router = useRouter();
   const [problem, setProblem] = useState("");
   const [pendingMessage, setPendingMessage] = useState("");
   const [selected, setSelected] = useState<string | null>(null);
@@ -405,7 +407,7 @@ export default function HeroIntake() {
         </div>
 
         <h1 className="mb-8 text-center text-base font-medium tracking-tight text-black/70 sm:mb-12 sm:text-lg">
-          Denizli’de web sitesi, e-ticaret ve yazılım
+          Denizli’de Web Sitesi, E-Ticaret Ve Yazılım
         </h1>
 
         {phase === "success" ? (
@@ -414,10 +416,10 @@ export default function HeroIntake() {
             role="status"
           >
             <p className="text-xs font-medium tracking-[0.2em] uppercase text-black/45">
-              Talebiniz alındı
+              Talebiniz Alındı
             </p>
             <p className="mt-3 text-xl font-medium tracking-tight text-black sm:text-2xl">
-              En kısa sürede sizi arayacağız.
+              En Kısa Sürede Sizi Arayacağız.
             </p>
             <p className="mt-3 text-sm text-black/60">
               Numaranızı aldık. Kısa süre içinde dönüş yapacağız.
@@ -480,10 +482,23 @@ export default function HeroIntake() {
         {phase !== "success" && phase !== "process" && (
           <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <span className="text-xs font-medium tracking-widest uppercase text-black/45">
-              Hazır çözümler
+              Hazır Çözümler
             </span>
             <div className="flex flex-wrap justify-center gap-2">
               {solutions.map((s) => {
+                if ("href" in s) {
+                  return (
+                    <button
+                      key={s.id}
+                      type="button"
+                      disabled={problemLocked}
+                      onClick={() => router.push(s.href)}
+                      className="border border-black bg-ice px-4 py-2 text-sm font-medium text-black transition-colors duration-300 hover:bg-black hover:text-white disabled:opacity-50"
+                    >
+                      {s.label}
+                    </button>
+                  );
+                }
                 const isActive = selected === s.id;
                 return (
                   <button

@@ -1,26 +1,30 @@
 const faqs = [
   {
-    q: "Fiyat nasıl belirleniyor?",
+    q: "Fiyat Nasıl Belirleniyor?",
     a: "Kapsama göre. Önce ihtiyacı netleştirir, sonra sabit veya net aralıklı bir teklif yazarız. Gizli kalem yok.",
   },
   {
-    q: "Ne kadar sürer?",
+    q: "Ne Kadar Sürer?",
     a: "Basit bir tanıtım / landing sitesi genelde kısa sürede çıkar. E-ticaret ve özel yazılım işin büyüklüğüne göre planlanır; süre teklifte yazar.",
   },
   {
-    q: "E-ticarete sıfırdan mı başlıyorsunuz?",
+    q: "Görünürlük Analizi Nedir?",
+    a: "Kısa bir form ve görüşmeden sonra sitenizin ve Google’daki durumunuzu sade bir raporla özetleriz: nerede güçlüsünüz, önce ne yapılmalı. PDF olarak elinizde kalır.",
+  },
+  {
+    q: "E-Ticarete Sıfırdan Mı Başlıyorsunuz?",
     a: "Evet. Denizli’de ürün satan işletmeler için e-ticaret başlangıcını sade tutuyoruz: ürün vitrini, sipariş/ödeme düzeni ve ilk yayına net bir yol.",
   },
   {
-    q: "Hosting ve alan adı sizde mi?",
+    q: "Hosting Ve Alan Adı Sizde Mi?",
     a: "İsterseniz kurulumunu biz yaparız; hesaplar ve mülkiyet sizde kalır. Nasıl ilerleyeceğimizi baştan konuşuruz.",
   },
   {
-    q: "Yayından sonra destek var mı?",
+    q: "Yayından Sonra Destek Var Mı?",
     a: "Evet. Küçük düzeltmeler ve sorular için yanınızdayız. Daha büyük eklemeler ayrı konuşulur.",
   },
   {
-    q: "Denizli dışına iş alıyor musunuz?",
+    q: "Denizli Dışına İş Alıyor Musunuz?",
     a: "Önceliğimiz Denizli’deki küçük ve büyük işletmeler. Uzaktan da çalışabiliriz; odak şimdilik yerelde.",
   },
 ] as const;
@@ -41,7 +45,7 @@ export default function FaqSection() {
             id="sss-title"
             className="text-3xl font-medium tracking-tight text-black sm:text-4xl"
           >
-            Sık sorulanlar
+            Sık Sorulanlar
           </h2>
         </div>
 

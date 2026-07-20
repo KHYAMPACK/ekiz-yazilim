@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 function DemoFrame({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="mt-6 w-full min-w-0 overflow-hidden border border-black bg-white text-black"
+      className="w-full min-w-0 overflow-hidden border border-black bg-white text-black"
       style={{ aspectRatio: "10 / 7" }}
     >
       <svg
@@ -113,18 +115,24 @@ function DemoSoftware() {
 
 const services = [
   {
-    title: "Web sitesi / landing",
+    title: "Web Sitesi / Landing",
     body: "Ne sattığınızı veya ne yaptığınızı net anlatan sayfalar.",
+    cta: "Site İste",
+    href: "/#ust",
     Demo: DemoLanding,
   },
   {
-    title: "E-ticaret",
+    title: "E-Ticaret",
     body: "Ürün satışı ve kendi markanızla online vitrin.",
+    cta: "E-Ticaret Başlat",
+    href: "/#ust",
     Demo: DemoEcommerce,
   },
   {
-    title: "Özel çözüm",
+    title: "Özel Çözüm",
     body: "İşinize ve hedeflerinize göre uyarlanmış yazılımlar.",
+    cta: "Çözüm Konuş",
+    href: "/#iletisim",
     Demo: DemoSoftware,
   },
 ] as const;
@@ -146,7 +154,7 @@ export default function AboutSection() {
               id="hakkimizda-title"
               className="text-3xl font-medium tracking-tight text-black sm:text-4xl"
             >
-              Denizli’deki küçük, orta ve büyük işletmeler için dijitalleşme zamanı...
+              Denizli’deki Küçük, Orta Ve Büyük İşletmeler İçin Dijitalleşme Zamanı...
             </h2>
           </div>
           <div className="space-y-4 text-base leading-relaxed text-black/80 sm:text-lg">
@@ -198,25 +206,29 @@ export default function AboutSection() {
 
         <div className="mt-12 sm:mt-14">
           <p className="mb-6 text-xs font-medium tracking-[0.2em] uppercase text-black/45">
-            Ne yapıyoruz?
+          Ne Yapıyoruz?
           </p>
-          <ul className="grid gap-10 border border-black bg-ice/20 pt-0 sm:grid-cols-3 sm:gap-0">
-            {services.map(({ title, body, Demo }, index) => (
+          <ul className="grid gap-px border border-black bg-black sm:grid-cols-3">
+            {services.map(({ title, body, cta, href, Demo }) => (
               <li
                 key={title}
-                className={`min-w-0 bg-white p-6 text-black ${
-                  index < services.length - 1
-                    ? "border-b border-black sm:border-r sm:border-b-0"
-                    : ""
-                }`}
+                className="flex min-w-0 flex-col bg-white p-6 text-black"
               >
                 <h3 className="text-lg font-medium tracking-tight text-black">
                   {title}
                 </h3>
-                <p className="mt-2 min-h-14 text-base leading-relaxed text-black/65">
+                <p className="mt-2 min-h-14 flex-1 text-base leading-relaxed text-black/65">
                   {body}
                 </p>
-                <Demo />
+                <Link
+                  href={href}
+                  className="mt-5 inline-flex w-full items-center justify-center border border-black bg-black px-4 py-3 text-sm font-medium tracking-wide text-white transition-colors hover:bg-white hover:text-black"
+                >
+                  {cta}
+                </Link>
+                <div className="mt-5">
+                  <Demo />
+                </div>
               </li>
             ))}
           </ul>
