@@ -80,7 +80,7 @@ export default async function RaporPage({ params, searchParams }: PageProps) {
         </section>
 
         <section className="overflow-hidden border border-black bg-white">
-          <div className="grid gap-8 border-b border-black bg-ice/20 p-6 print:bg-white md:grid-cols-[1.3fr_auto] md:p-10">
+          <div className="print-cover-grid grid gap-8 border-b border-black bg-ice/20 p-6 print:bg-white md:grid-cols-[1.3fr_auto] md:p-10">
             <div>
               <p className="text-[11px] font-medium tracking-[0.18em] uppercase text-black/45">
                 Hazırlanan işletme · {meta.preparedFor}
@@ -91,7 +91,7 @@ export default async function RaporPage({ params, searchParams }: PageProps) {
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-black/65 md:text-lg">
                 {executive.summary}
               </p>
-              <div className="mt-8 grid gap-3 text-sm sm:grid-cols-2">
+              <div className="mt-8 grid gap-3 text-sm sm:grid-cols-2 print:grid-cols-2">
                 <MetaCard label="İşletme türü" value={meta.businessType} />
                 <MetaCard label="Website" value={meta.websiteUrl} />
                 {meta.city ? <MetaCard label="Şehir" value={meta.city} /> : null}
@@ -106,7 +106,7 @@ export default async function RaporPage({ params, searchParams }: PageProps) {
               </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center border border-black bg-white px-6 py-6">
+            <div className="print-score-box flex flex-col items-center justify-center border border-black bg-white px-6 py-6">
               <ScoreRing score={executive.overallScore} />
               <p className="mt-3 max-w-[12rem] text-center text-xs leading-relaxed text-black/55">
                 Genel görünürlük puanı (0–100)
@@ -114,7 +114,7 @@ export default async function RaporPage({ params, searchParams }: PageProps) {
             </div>
           </div>
 
-          <div className="grid gap-px border-t border-black bg-black md:grid-cols-2 lg:grid-cols-4">
+          <div className="print-priorities grid gap-px border-t border-black bg-black md:grid-cols-2 lg:grid-cols-4">
             {executive.topPriorities.map((item, index) => (
               <div key={item} className="bg-white p-4">
                 <p className="text-[11px] font-medium tracking-[0.16em] uppercase text-black/45">
@@ -139,11 +139,11 @@ export default async function RaporPage({ params, searchParams }: PageProps) {
         </nav>
 
         <div className="mt-8 space-y-8">
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <CategorySection
               key={category.id}
               category={category}
-              pageBreak={index > 0}
+              pageBreak
             />
           ))}
         </div>
@@ -163,11 +163,11 @@ export default async function RaporPage({ params, searchParams }: PageProps) {
             Google’da ücretsiz görünürlük temeli kurulur.
           </p>
 
-          <div className="mt-8 grid gap-0 border border-white/25 md:grid-cols-3">
+          <div className="print-stack mt-8 grid gap-0 border border-white/25 md:grid-cols-3">
             {roadmap.map((phase, i) => (
               <article
                 key={phase.phase}
-                className={`p-5 ${
+                className={`print-keep p-5 ${
                   i < roadmap.length - 1
                     ? "border-b border-white/25 md:border-r md:border-b-0"
                     : ""

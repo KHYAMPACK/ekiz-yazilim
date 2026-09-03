@@ -12,11 +12,11 @@ export function CategorySection({
   return (
     <section
       id={category.id}
-      className={`scroll-mt-24 border border-black bg-white p-6 md:p-8 ${
+      className={`print-category scroll-mt-24 border border-black bg-white p-6 md:p-8 ${
         pageBreak ? "print-break" : ""
       }`}
     >
-      <div className="flex flex-col gap-4 border-b border-black pb-6 md:flex-row md:items-end md:justify-between">
+      <div className="print-category-header flex flex-col gap-4 border-b border-black pb-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl">
           <p className="text-[11px] font-medium tracking-[0.16em] uppercase text-black/45">
             Bölüm
@@ -44,12 +44,12 @@ export function CategorySection({
         </div>
       </div>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-        <div className="space-y-4">
+      <div className="print-stack mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+        <div className="print-findings space-y-4">
           {category.findings.map((finding) => (
             <article
               key={finding.id}
-              className="border border-black bg-ice/15 p-5"
+              className="print-keep border border-black bg-ice/15 p-5"
             >
               <div className="flex flex-wrap items-center gap-2">
                 <SeverityBadge severity={finding.severity} />

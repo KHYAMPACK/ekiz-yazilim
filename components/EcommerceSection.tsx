@@ -13,7 +13,7 @@ export default function EcommerceSection() {
   return (
     <section
       id="e-ticaret"
-      className="border-b border-black bg-ice/30"
+      className="border-b border-black bg-white"
       aria-labelledby="eticaret-home-title"
     >
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14">

@@ -7,8 +7,9 @@
   --background: var(--ekiz-white);
   --foreground: var(--ekiz-black);
   --accent: var(--ekiz-ice);
-  /* Home: ice→white→ice→white→black→white→ice | kurucu white→ice→white | footer black */
+  /* Home: ice→white→ice (web)→white (ecom)→ice→white→black→white→ice | kurucu white→ice→white | footer black */
   /* E-ticaret: white↔ice, Nasıl ilerleriz black, then ice | footer. İlham unchanged. */
+  /* Web sitesi: white hero → black marquee → ice pains → black process → black pillars → ice plan → white work → ice why → white trust → ice faq → white cta | footer. */
 }
 
 @theme inline {
@@ -1185,12 +1186,14 @@ html.logo-loader-active body {
 /* —— Görünürlük raporu: yazdır / PDF —— */
 @media print {
   @page {
-    margin: 14mm;
+    size: A4;
+    margin: 12mm;
   }
 
   .report-shell {
     background: white !important;
     color: #000 !important;
+    overflow: visible !important;
   }
 
   .no-print {
@@ -1199,10 +1202,143 @@ html.logo-loader-active body {
 
   .print-break {
     break-before: page;
+    page-break-before: always;
   }
 
   .report-shell a {
     text-decoration: none !important;
     color: inherit !important;
+  }
+
+  /* Sadece bilinçli yığınlar blok olsun — ScoreRing flex’ine dokunma */
+  .report-shell .print-stack,
+  .report-shell .print-cover-grid,
+  .report-shell .print-priorities {
+    display: block !important;
+  }
+
+  .report-shell .print-stack > * + *,
+  .report-shell .print-cover-grid > * + *,
+  .report-shell .print-priorities > * + * {
+    margin-top: 1rem;
+  }
+
+  .report-shell .print-priorities {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  .report-shell .print-priorities > * {
+    border: 1px solid #000;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .report-shell .print-score-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Tek kart / bulgu kutusu sayfa ortasında kesilmesin */
+  .report-shell .print-keep {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+  }
+
+  .report-shell .print-findings > * + * {
+    margin-top: 0.85rem;
+  }
+
+  /* Büyük kategori çerçevesi sayfalar arası “kesilmiş” görünmesin */
+  .report-shell .print-category {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+
+  .report-shell .print-category-header {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #000 !important;
+    border-bottom: 1px solid #000 !important;
+    padding: 1rem 1.25rem !important;
+    margin-bottom: 0.85rem;
+    display: block !important;
+  }
+
+  .report-shell .print-category-header > * + * {
+    margin-top: 0.75rem;
+  }
+
+  /* Yazdırırken biraz sıkıltı — daha az yarım sayfa */
+  .report-shell main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .report-shell section {
+    margin-top: 0.75rem !important;
+  }
+
+  .report-shell h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .report-shell h2 {
+    font-size: 1.35rem !important;
+  }
+
+  .report-shell h3 {
+    font-size: 1.1rem !important;
+  }
+
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+}
+
+/* —— Denizli web sitesi landing —— */
+@keyframes web-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.web-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: web-marquee 48s linear infinite;
+}
+
+.web-marquee__track--reverse {
+  animation-duration: 56s;
+  animation-direction: reverse;
+}
+
+.web-marquee:hover .web-marquee__track {
+  animation-play-state: paused;
+}
+
+.web-hero-frame {
+  box-shadow: 12px 16px 0 0 var(--ekiz-ice);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .web-marquee__track,
+  .web-marquee__track--reverse {
+    animation: none;
+    transform: none;
   }
 }

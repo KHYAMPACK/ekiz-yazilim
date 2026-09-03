@@ -106,7 +106,7 @@ const FAQS = [
   },
   {
     q: "Sadece giyim / butik mi?",
-    a: "Bu sayfa onlara odaklı. Başka ürün satıyorsanız yine yazın; genel hizmetler için ana sayfaya da bakabilirsiniz.",
+    a: "Bu sayfa onlara odaklı. Ürün satmayan bir tanıtım sitesi istiyorsanız Denizli web sitesi sayfasına bakın.",
   },
   {
     q: "Ne kazanırım?",

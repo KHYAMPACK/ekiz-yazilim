@@ -9,8 +9,7 @@ export default function FirstClientNote() {
           Not
         </p>
         <p className="min-w-0 max-w-3xl text-base leading-relaxed text-black sm:text-lg">
-          İlk canlı işimizden biri yukarıda. Yeni projeler geldikçe buraya
-          eklenir.
+          Yayındaki işler yukarıda. Yeni projeler geldikçe buraya eklenir.
         </p>
       </div>
     </section>

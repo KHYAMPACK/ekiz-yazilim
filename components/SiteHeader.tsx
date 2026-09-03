@@ -16,11 +16,22 @@ const links = [
   { href: "/#iletisim", label: "İletişim" },
 ] as const;
 
+const webLinks = [
+  { href: "#surec", label: "İş akışı" },
+  { href: "#odak", label: "Odak" },
+  { href: "#plan", label: "Plan" },
+  { href: "#isler", label: "İşler" },
+  { href: "#neden", label: "Neden" },
+  { href: "#sss", label: "SSS" },
+  { href: "#gorusme", label: "Görüşme" },
+] as const;
+
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const onHome = pathname === "/";
   const onEticaret = pathname === "/denizli-e-ticaret";
+  const onWeb = pathname === "/denizli-web-sitesi";
 
   function close() {
     setOpen(false);
@@ -37,9 +48,9 @@ export default function SiteHeader() {
           <Logo variant="full" tone="onLight" size={24} layout="inline" />
         </Link>
 
-        <nav className="ml-auto hidden items-center gap-5 lg:gap-7 md:flex" aria-label="Ana menü">
+        <nav className="ml-auto hidden items-center gap-5 lg:flex lg:gap-7" aria-label="Ana menü">
           <ul className="flex items-center justify-end gap-5 lg:gap-7">
-            {links.map((link) => (
+            {(onWeb ? webLinks : links).map((link) => (
               <li key={link.href}>
                 {"route" in link && link.route ? (
                   <Link
@@ -61,13 +72,26 @@ export default function SiteHeader() {
             ))}
           </ul>
           <Link
+            href="/denizli-web-sitesi"
+            onClick={close}
+            className={[
+              "shrink-0 border px-3 py-1.5 text-sm font-medium tracking-wide transition-colors",
+              onWeb
+                ? "border-black bg-black text-white"
+                : "border-black bg-ice text-black hover:bg-black hover:text-white",
+            ].join(" ")}
+            aria-current={onWeb ? "page" : undefined}
+          >
+            Web sitesi
+          </Link>
+          <Link
             href="/denizli-e-ticaret"
             onClick={close}
             className={[
-              "shrink-0 border px-3.5 py-1.5 text-sm font-medium tracking-wide transition-colors",
+              "shrink-0 border px-3 py-1.5 text-sm font-medium tracking-wide transition-colors",
               onEticaret
                 ? "border-black bg-black text-white"
-                : "border-black bg-ice text-black hover:bg-black hover:text-white",
+                : "border-black bg-white text-black hover:bg-black hover:text-white",
             ].join(" ")}
             aria-current={onEticaret ? "page" : undefined}
           >
@@ -77,7 +101,7 @@ export default function SiteHeader() {
 
         <button
           type="button"
-          className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center border border-black md:hidden"
+          className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center border border-black lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
@@ -101,10 +125,25 @@ export default function SiteHeader() {
       {open && (
         <nav
           id="mobile-nav"
-          className="border-t border-black bg-white md:hidden"
+          className="border-t border-black bg-white lg:hidden"
           aria-label="Mobil menü"
         >
           <ul className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+            <li className="border-b border-black/10 py-3">
+              <Link
+                href="/denizli-web-sitesi"
+                onClick={close}
+                className={[
+                  "flex min-h-11 items-center justify-center border text-sm font-medium tracking-wide",
+                  onWeb
+                    ? "border-black bg-black text-white"
+                    : "border-black bg-ice text-black",
+                ].join(" ")}
+                aria-current={onWeb ? "page" : undefined}
+              >
+                Denizli Web sitesi
+              </Link>
+            </li>
             <li className="border-b border-black/10 py-3">
               <Link
                 href="/denizli-e-ticaret"
@@ -113,14 +152,14 @@ export default function SiteHeader() {
                   "flex min-h-11 items-center justify-center border text-sm font-medium tracking-wide",
                   onEticaret
                     ? "border-black bg-black text-white"
-                    : "border-black bg-ice text-black",
+                    : "border-black bg-white text-black",
                 ].join(" ")}
                 aria-current={onEticaret ? "page" : undefined}
               >
                 Denizli E-ticaret
               </Link>
             </li>
-            {links.map((link) => (
+            {(onWeb ? webLinks : links).map((link) => (
               <li
                 key={link.href}
                 className="border-b border-black/10 last:border-0"

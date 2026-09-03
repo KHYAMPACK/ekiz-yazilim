@@ -118,7 +118,7 @@ const services = [
     title: "Web Sitesi / Landing",
     body: "Ne sattığınızı veya ne yaptığınızı net anlatan sayfalar.",
     cta: "Site İste",
-    href: "/#ust",
+    href: "/denizli-web-sitesi",
     Demo: DemoLanding,
   },
   {

@@ -41,10 +41,10 @@ const TOPICS: Topic[] = [
     id: "website",
     question: "Web sitesi yaptırmak istiyorum",
     title: "İşinize uygun bir site",
-    body: "Küçük veya büyüyen işletmeler için sade, hızlı siteler. Önce ihtiyacı netleştirir, sonra kurarız.",
+    body: "Kreş, okul, ofis veya atölye için keşiften yayına özel web sitesi. Denizli sayfasında süreci ve örnek işleri görebilirsiniz.",
     ctas: [
-      { label: "Ana sayfa", href: "/", primary: true },
-      { label: "Keşif görüşmesi", href: "/randevu" },
+      { label: "Web sitesi sayfası", href: "/denizli-web-sitesi", primary: true },
+      { label: "Görüşme ayarla", href: "/denizli-web-sitesi#gorusme" },
     ],
   },
   {

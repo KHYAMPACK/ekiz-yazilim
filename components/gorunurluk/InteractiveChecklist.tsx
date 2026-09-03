@@ -23,7 +23,7 @@ export function InteractiveChecklist({
   const doneCount = state.filter((i) => i.done).length;
 
   return (
-    <div className="border border-black bg-white p-5">
+    <div className="print-keep border border-black bg-white p-5">
       <div className="mb-4 flex items-end justify-between gap-3">
         <h4 className="text-lg font-medium tracking-tight text-black">
           {title ?? "Yapılacaklar"}
