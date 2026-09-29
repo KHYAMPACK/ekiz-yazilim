@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from "react";
 import IntakeProcessModal, {
   type IntakeAnswers,
 } from "@/components/IntakeProcessModal";
 import Logo from "./Logo";
+import { works } from "@/lib/works";
 
 const MAX_ATTEMPTS = 3;
 const ATTEMPTS_KEY = "ekiz-intake-attempts";
@@ -521,6 +523,19 @@ export default function HeroIntake() {
             </div>
           </div>
         )}
+
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/isler"
+            className="group inline-flex min-h-12 items-center gap-3 border border-black bg-white px-5 text-sm font-medium tracking-wide text-black transition-colors duration-300 hover:bg-black hover:text-white"
+          >
+            Yaptığım işleri gör
+            <span className="text-black/45 transition-colors duration-300 group-hover:text-white/60">
+              {works.length} proje
+            </span>
+            <span aria-hidden>→</span>
+          </Link>
+        </div>
       </div>
     </section>
   );

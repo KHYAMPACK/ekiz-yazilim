@@ -8,7 +8,7 @@ import Logo from "./Logo";
 const links = [
   { href: "/#hakkimizda", label: "Hakkımızda" },
   { href: "/#surec", label: "Süreç" },
-  { href: "/#isler", label: "İşler" },
+  { href: "/isler", label: "İşler", route: true },
   { href: "/ilham", label: "İlham", route: true },
   { href: "/gorunurluk", label: "Görünürlük", route: true },
   { href: "/#kurucu", label: "Kurucu" },
@@ -20,7 +20,7 @@ const webLinks = [
   { href: "#surec", label: "İş akışı" },
   { href: "#odak", label: "Odak" },
   { href: "#plan", label: "Plan" },
-  { href: "#isler", label: "İşler" },
+  { href: "/isler", label: "İşler", route: true },
   { href: "#neden", label: "Neden" },
   { href: "#sss", label: "SSS" },
   { href: "#gorusme", label: "Görüşme" },

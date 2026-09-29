@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function FirstClientNote() {
   return (
     <section
@@ -9,7 +11,11 @@ export default function FirstClientNote() {
           Not
         </p>
         <p className="min-w-0 max-w-3xl text-base leading-relaxed text-black sm:text-lg">
-          Yayındaki işler yukarıda. Yeni projeler geldikçe buraya eklenir.
+          Yayındaki işlerin tam listesi{" "}
+          <Link href="/isler" className="underline underline-offset-4">
+            İşler
+          </Link>{" "}
+          sayfasında. Yeni projeler geldikçe oraya eklenir.
         </p>
       </div>
     </section>
